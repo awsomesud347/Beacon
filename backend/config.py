@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     narrator: Literal["cloud", "local", "template"] = "cloud"
     nvidia_api_key: str = ""
     nemotron_base_url: str = "https://integrate.api.nvidia.com/v1"
-    nemotron_model: str = ""
+    nemotron_model: str = "nvidia/nemotron-3-nano-30b-a3b"
     local_llm_base_url: str = "http://localhost:11434/v1"
     local_llm_model: str = ""
 
