@@ -1,3 +1,4 @@
+import { ConversationProvider } from '@elevenlabs/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   errorMessage,
@@ -15,11 +16,13 @@ import { LiveRegion } from './components/LiveRegion'
 import { PayloadInspector } from './components/PayloadInspector'
 import { SettingsPanel } from './components/SettingsPanel'
 import { Transcript } from './components/Transcript'
+import { VoiceControl } from './components/VoiceControl'
 import { useAnnouncer } from './hooks/useAnnouncer'
+import { useBeaconVoice } from './hooks/useBeaconVoice'
 import { useEventStream } from './hooks/useEventStream'
 import { describeDataset } from './lib/describe'
 
-function App() {
+function Beacon() {
   const [turns, setTurns] = useState<Turn[]>([])
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -30,10 +33,10 @@ function App() {
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const [focusRequest, setFocusRequest] = useState(0)
 
-  // Voice is not wired up yet; the announcement rules already key off it.
-  const [voiceActive] = useState(false)
-
   const { message, announce, clear } = useAnnouncer()
+  const voice = useBeaconVoice(announce)
+  const voiceActive = voice.active
+
   const answerHeadingRef = useRef<HTMLHeadingElement>(null)
   const inspectorButtonRef = useRef<HTMLButtonElement>(null)
   const seenTurnIds = useRef(new Set<string>())
@@ -157,7 +160,11 @@ function App() {
       }
       if (!event.altKey || event.ctrlKey || event.metaKey) return
       const key = event.key.toLowerCase()
-      if (key === 'r') {
+      if (key === 'v') {
+        event.preventDefault()
+        if (voice.active) voice.stop()
+        else void voice.start()
+      } else if (key === 'r') {
         event.preventDefault()
         replay()
       } else if (key === 'p') {
@@ -168,7 +175,7 @@ function App() {
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [replay, stop, toggleInspector])
+  }, [replay, stop, toggleInspector, voice])
 
   return (
     <>
@@ -203,6 +210,8 @@ function App() {
 
         <AskForm onAsk={(text) => void ask(text)} busy={busy} />
 
+        <VoiceControl voice={voice} />
+
         <PayloadInspector
           turn={latestTurn}
           open={inspectorOpen}
@@ -229,6 +238,8 @@ function App() {
         <section aria-labelledby="shortcuts-heading" className="panel">
           <h2 id="shortcuts-heading">Keyboard shortcuts</h2>
           <dl className="shortcuts">
+            <dt>Alt + V</dt>
+            <dd>Turn voice on or off</dd>
             <dt>Alt + R</dt>
             <dd>Replay the last answer</dd>
             <dt>Alt + P</dt>
@@ -251,6 +262,15 @@ function App() {
 
       <LiveRegion message={message} />
     </>
+  )
+}
+
+/** The ElevenLabs SDK requires its provider above any component using useConversation. */
+function App() {
+  return (
+    <ConversationProvider>
+      <Beacon />
+    </ConversationProvider>
   )
 }
 
