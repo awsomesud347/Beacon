@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     nvidia_api_key: str = ""
     nemotron_base_url: str = "https://integrate.api.nvidia.com/v1"
     nemotron_model: str = "nvidia/nemotron-3-nano-30b-a3b"
-    local_llm_base_url: str = "http://localhost:11434/v1"
-    local_llm_model: str = ""
+    local_llm_base_url: str = "http://localhost:8001/v1"
+    local_llm_model: str = "nemotron-nano-4b"
     local_llm_api_key: str = "local"
 
     elevenlabs_api_key: str = ""
