@@ -33,7 +33,7 @@ def _client() -> tuple[OpenAI, str] | None:
         return OpenAI(base_url=s.nemotron_base_url, api_key=s.nvidia_api_key,
                       timeout=TIMEOUT_S, max_retries=0), s.nemotron_model
     if s.narrator == "local" and s.local_llm_model:
-        return OpenAI(base_url=s.local_llm_base_url, api_key="local",
+        return OpenAI(base_url=s.local_llm_base_url, api_key=s.local_llm_api_key,
                       timeout=TIMEOUT_S, max_retries=0), s.local_llm_model
     return None
 

@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     nemotron_model: str = "nvidia/nemotron-3-nano-30b-a3b"
     local_llm_base_url: str = "http://localhost:11434/v1"
     local_llm_model: str = ""
+    local_llm_api_key: str = "local"
 
     elevenlabs_api_key: str = ""
     elevenlabs_agent_id: str = ""
