@@ -1,0 +1,39 @@
+:root {
+  --text: #111;
+  --bg: #fff;
+  --focus: #0050b3;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #f2f2f2;
+    --bg: #111;
+    --focus: #7cb7ff;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  max-width: 48rem;
+}
+
+:focus-visible {
+  outline: 0.1875rem solid var(--focus);
+  outline-offset: 0.125rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
