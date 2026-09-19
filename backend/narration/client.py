@@ -77,7 +77,8 @@ def narrate(bundle: FactBundle, discreet: bool = False) -> Narration:
         return template(bundle, discreet)
     client, model = configured
     intent = bundle.query_type.value
-    bundle_json = bundle.model_dump_json(exclude_none=True)
+    # Exactly what Turn.fact_bundle carries, so the payload inspector shows the real payload.
+    bundle_json = bundle.model_dump_json()
     rejected: list[str] = []
     attempts = 0
     try:
