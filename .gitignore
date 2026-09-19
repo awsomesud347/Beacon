@@ -1,0 +1,39 @@
+# dev-aid docs: never committed
+*.md
+!/README.md
+CLAUDE.md
+.claude/
+notes/
+
+# secrets
+.env
+.env.*
+!.env.example
+frontend/.env*
+!frontend/.env.example
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# node
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# runtime
+data/demo_cache/*
+!data/demo_cache/.gitkeep
+logs/
+*.log
+
+# os / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
