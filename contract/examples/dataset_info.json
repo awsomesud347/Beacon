@@ -1,0 +1,8 @@
+{
+  "source": "fixture",
+  "name": "demo_persona.csv",
+  "row_count": 1847,
+  "date_min": "2025-08-01",
+  "date_max": "2026-09-30",
+  "current_period": "September 2026"
+}

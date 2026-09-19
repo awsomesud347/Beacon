@@ -1,0 +1,76 @@
+{
+  "turn_id": "7f1c2d9e-2b1a-4c55-9a0e-3f6d1b8a4c01",
+  "created_at": "2026-09-19T17:00:00Z",
+  "channel": "text",
+  "query_text": "What's unusual?",
+  "intent": "anomalies",
+  "narration": "Your spending is normal except for one thing: you paid three new subscriptions this month that you didn't pay last month, totaling $47. There's also a possible duplicate charge of $38.50 at Corner Bistro.",
+  "narration_source": "model",
+  "fact_bundle": {
+    "contract_version": "1",
+    "query_type": "anomalies",
+    "period": "September 2026",
+    "verdict": "normal_with_exception",
+    "anomalies": [
+      {
+        "type": "new_recurring",
+        "merchants": [
+          "Streamly Plus",
+          "CloudVault",
+          "FitTrack Pro"
+        ],
+        "category": "subscriptions",
+        "count": 3,
+        "total": 47.0,
+        "amount": null,
+        "previous_amount": null,
+        "change_pct": null,
+        "typical_amount": null
+      },
+      {
+        "type": "duplicate_charge",
+        "merchants": [
+          "Corner Bistro"
+        ],
+        "category": null,
+        "count": 2,
+        "total": 77.0,
+        "amount": 38.5,
+        "previous_amount": null,
+        "change_pct": null,
+        "typical_amount": null
+      },
+      {
+        "type": "amount_drift",
+        "merchants": [
+          "StreamFlix"
+        ],
+        "category": null,
+        "count": null,
+        "total": null,
+        "amount": 17.99,
+        "previous_amount": 15.49,
+        "change_pct": 16.1,
+        "typical_amount": null
+      }
+    ],
+    "summary": null,
+    "comparison": null,
+    "context": {
+      "month_total_out": 2914.22,
+      "prior_month_total_out": 2871.05,
+      "delta_pct": 1.5
+    }
+  },
+  "guard": {
+    "passed": true,
+    "attempts": 1,
+    "rejected_tokens": []
+  },
+  "latency_ms": {
+    "analysis": 12,
+    "narration": 640,
+    "total": 655
+  },
+  "audio_url": null
+}

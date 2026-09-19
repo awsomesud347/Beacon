@@ -1,0 +1,56 @@
+{
+  "contract_version": "1",
+  "query_type": "anomalies",
+  "period": "September 2026",
+  "verdict": "normal_with_exception",
+  "anomalies": [
+    {
+      "type": "new_recurring",
+      "merchants": [
+        "Streamly Plus",
+        "CloudVault",
+        "FitTrack Pro"
+      ],
+      "category": "subscriptions",
+      "count": 3,
+      "total": 47.0,
+      "amount": null,
+      "previous_amount": null,
+      "change_pct": null,
+      "typical_amount": null
+    },
+    {
+      "type": "duplicate_charge",
+      "merchants": [
+        "Corner Bistro"
+      ],
+      "category": null,
+      "count": 2,
+      "total": 77.0,
+      "amount": 38.5,
+      "previous_amount": null,
+      "change_pct": null,
+      "typical_amount": null
+    },
+    {
+      "type": "amount_drift",
+      "merchants": [
+        "StreamFlix"
+      ],
+      "category": null,
+      "count": null,
+      "total": null,
+      "amount": 17.99,
+      "previous_amount": 15.49,
+      "change_pct": 16.1,
+      "typical_amount": null
+    }
+  ],
+  "summary": null,
+  "comparison": null,
+  "context": {
+    "month_total_out": 2914.22,
+    "prior_month_total_out": 2871.05,
+    "delta_pct": 1.5
+  }
+}

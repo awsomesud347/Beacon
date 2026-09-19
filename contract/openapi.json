@@ -1,0 +1,1145 @@
+{
+  "components": {
+    "schemas": {
+      "Anomaly": {
+        "description": "Flat shape; which optional fields are set depends on `type`.\n\nnew_recurring      merchants, category, count, total\nduplicate_charge   merchants, count, amount, total\namount_drift       merchants, amount, previous_amount, change_pct\nmissing_recurring  merchants, amount\ncategory_outlier   category, amount, typical_amount, change_pct\nlarge_transaction  merchants, category, amount",
+        "properties": {
+          "amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "change_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Change Pct"
+          },
+          "count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Count"
+          },
+          "merchants": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Merchants",
+            "type": "array"
+          },
+          "previous_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Amount"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AnomalyType"
+          },
+          "typical_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Typical Amount"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "Anomaly",
+        "type": "object"
+      },
+      "AnomalyType": {
+        "enum": [
+          "new_recurring",
+          "duplicate_charge",
+          "amount_drift",
+          "missing_recurring",
+          "category_outlier",
+          "large_transaction"
+        ],
+        "title": "AnomalyType",
+        "type": "string"
+      },
+      "ApiError": {
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "details": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Details",
+            "type": "array"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ApiError",
+        "type": "object"
+      },
+      "Body_upload_dataset_api_dataset_upload_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_dataset_api_dataset_upload_post",
+        "type": "object"
+      },
+      "CategoryAmount": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "number"
+          },
+          "delta_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta Pct"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "amount"
+        ],
+        "title": "CategoryAmount",
+        "type": "object"
+      },
+      "Channel": {
+        "enum": [
+          "text",
+          "voice"
+        ],
+        "title": "Channel",
+        "type": "string"
+      },
+      "ChatCompletionRequest": {
+        "additionalProperties": true,
+        "properties": {
+          "max_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Tokens"
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
+            "title": "Messages",
+            "type": "array"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "stream": {
+            "default": false,
+            "title": "Stream",
+            "type": "boolean"
+          },
+          "temperature": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Temperature"
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id"
+          }
+        },
+        "required": [
+          "messages"
+        ],
+        "title": "ChatCompletionRequest",
+        "type": "object"
+      },
+      "ChatMessage": {
+        "additionalProperties": true,
+        "properties": {
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "role"
+        ],
+        "title": "ChatMessage",
+        "type": "object"
+      },
+      "Comparison": {
+        "properties": {
+          "biggest_decrease": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CategoryAmount"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "biggest_increase": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CategoryAmount"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "current_total_out": {
+            "title": "Current Total Out",
+            "type": "number"
+          },
+          "delta_pct": {
+            "title": "Delta Pct",
+            "type": "number"
+          },
+          "prior_total_out": {
+            "title": "Prior Total Out",
+            "type": "number"
+          }
+        },
+        "required": [
+          "current_total_out",
+          "prior_total_out",
+          "delta_pct"
+        ],
+        "title": "Comparison",
+        "type": "object"
+      },
+      "Context": {
+        "properties": {
+          "delta_pct": {
+            "title": "Delta Pct",
+            "type": "number"
+          },
+          "month_total_out": {
+            "title": "Month Total Out",
+            "type": "number"
+          },
+          "prior_month_total_out": {
+            "title": "Prior Month Total Out",
+            "type": "number"
+          }
+        },
+        "required": [
+          "month_total_out",
+          "prior_month_total_out",
+          "delta_pct"
+        ],
+        "title": "Context",
+        "type": "object"
+      },
+      "DatasetInfo": {
+        "properties": {
+          "current_period": {
+            "title": "Current Period",
+            "type": "string"
+          },
+          "date_max": {
+            "format": "date",
+            "title": "Date Max",
+            "type": "string"
+          },
+          "date_min": {
+            "format": "date",
+            "title": "Date Min",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "row_count": {
+            "title": "Row Count",
+            "type": "integer"
+          },
+          "source": {
+            "enum": [
+              "fixture",
+              "upload"
+            ],
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "name",
+          "row_count",
+          "date_min",
+          "date_max",
+          "current_period"
+        ],
+        "title": "DatasetInfo",
+        "type": "object"
+      },
+      "ErrorCode": {
+        "enum": [
+          "invalid_request",
+          "csv_invalid",
+          "dataset_empty",
+          "narration_failed",
+          "unauthorized",
+          "not_found",
+          "not_implemented"
+        ],
+        "title": "ErrorCode",
+        "type": "string"
+      },
+      "FactBundle": {
+        "properties": {
+          "anomalies": {
+            "items": {
+              "$ref": "#/components/schemas/Anomaly"
+            },
+            "maxItems": 3,
+            "title": "Anomalies",
+            "type": "array"
+          },
+          "comparison": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Comparison"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "contract_version": {
+            "default": "1",
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "period": {
+            "examples": [
+              "September 2026"
+            ],
+            "title": "Period",
+            "type": "string"
+          },
+          "query_type": {
+            "$ref": "#/components/schemas/Intent"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MonthSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "verdict": {
+            "$ref": "#/components/schemas/Verdict"
+          }
+        },
+        "required": [
+          "query_type",
+          "period",
+          "verdict",
+          "context"
+        ],
+        "title": "FactBundle",
+        "type": "object"
+      },
+      "GuardResult": {
+        "properties": {
+          "attempts": {
+            "title": "Attempts",
+            "type": "integer"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "rejected_tokens": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Rejected Tokens",
+            "type": "array"
+          }
+        },
+        "required": [
+          "passed",
+          "attempts"
+        ],
+        "title": "GuardResult",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "Health": {
+        "properties": {
+          "contract_version": {
+            "default": "1",
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "dataset": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DatasetInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "demo_mode": {
+            "title": "Demo Mode",
+            "type": "boolean"
+          },
+          "narrator": {
+            "enum": [
+              "cloud",
+              "local",
+              "template"
+            ],
+            "title": "Narrator",
+            "type": "string"
+          },
+          "status": {
+            "const": "ok",
+            "default": "ok",
+            "title": "Status",
+            "type": "string"
+          },
+          "stub_mode": {
+            "title": "Stub Mode",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "narrator",
+          "demo_mode",
+          "stub_mode"
+        ],
+        "title": "Health",
+        "type": "object"
+      },
+      "Intent": {
+        "enum": [
+          "anomalies",
+          "month_summary",
+          "where_money_went",
+          "compare_last_month",
+          "replay",
+          "advice_refused",
+          "help",
+          "unknown"
+        ],
+        "title": "Intent",
+        "type": "string"
+      },
+      "Latency": {
+        "properties": {
+          "analysis": {
+            "title": "Analysis",
+            "type": "integer"
+          },
+          "narration": {
+            "title": "Narration",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "analysis",
+          "narration",
+          "total"
+        ],
+        "title": "Latency",
+        "type": "object"
+      },
+      "MonthSummary": {
+        "properties": {
+          "net": {
+            "title": "Net",
+            "type": "number"
+          },
+          "top_categories": {
+            "items": {
+              "$ref": "#/components/schemas/CategoryAmount"
+            },
+            "maxItems": 5,
+            "title": "Top Categories",
+            "type": "array"
+          },
+          "total_in": {
+            "title": "Total In",
+            "type": "number"
+          },
+          "total_out": {
+            "title": "Total Out",
+            "type": "number"
+          }
+        },
+        "required": [
+          "total_in",
+          "total_out",
+          "net"
+        ],
+        "title": "MonthSummary",
+        "type": "object"
+      },
+      "NarrationSource": {
+        "enum": [
+          "model",
+          "template",
+          "refusal",
+          "replay",
+          "cache"
+        ],
+        "title": "NarrationSource",
+        "type": "string"
+      },
+      "QueryRequest": {
+        "properties": {
+          "channel": {
+            "$ref": "#/components/schemas/Channel",
+            "default": "text"
+          },
+          "discreet": {
+            "default": false,
+            "title": "Discreet",
+            "type": "boolean"
+          },
+          "text": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "QueryRequest",
+        "type": "object"
+      },
+      "SseEvent": {
+        "enum": [
+          "turn",
+          "dataset",
+          "ping"
+        ],
+        "title": "SseEvent",
+        "type": "string"
+      },
+      "Turn": {
+        "properties": {
+          "audio_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Url"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/Channel"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "fact_bundle": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FactBundle"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "guard": {
+            "$ref": "#/components/schemas/GuardResult"
+          },
+          "intent": {
+            "$ref": "#/components/schemas/Intent"
+          },
+          "latency_ms": {
+            "$ref": "#/components/schemas/Latency"
+          },
+          "narration": {
+            "title": "Narration",
+            "type": "string"
+          },
+          "narration_source": {
+            "$ref": "#/components/schemas/NarrationSource"
+          },
+          "query_text": {
+            "title": "Query Text",
+            "type": "string"
+          },
+          "turn_id": {
+            "title": "Turn Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "turn_id",
+          "created_at",
+          "channel",
+          "query_text",
+          "intent",
+          "narration",
+          "narration_source",
+          "guard",
+          "latency_ms"
+        ],
+        "title": "Turn",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "Verdict": {
+        "enum": [
+          "normal",
+          "normal_with_exception",
+          "unusual",
+          "no_data"
+        ],
+        "title": "Verdict",
+        "type": "string"
+      },
+      "VoiceSession": {
+        "properties": {
+          "agent_id": {
+            "title": "Agent Id",
+            "type": "string"
+          },
+          "conversation_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversation Token"
+          },
+          "signed_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Signed Url"
+          }
+        },
+        "required": [
+          "agent_id"
+        ],
+        "title": "VoiceSession",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "Beacon API",
+    "version": "1"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/dataset": {
+      "get": {
+        "operationId": "get_dataset_api_dataset_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetInfo"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Dataset",
+        "tags": [
+          "dataset"
+        ]
+      }
+    },
+    "/api/dataset/reset": {
+      "post": {
+        "operationId": "reset_dataset_api_dataset_reset_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetInfo"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Reset Dataset",
+        "tags": [
+          "dataset"
+        ]
+      }
+    },
+    "/api/dataset/upload": {
+      "post": {
+        "operationId": "upload_dataset_api_dataset_upload_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_dataset_api_dataset_upload_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetInfo"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Upload Dataset",
+        "tags": [
+          "dataset"
+        ]
+      }
+    },
+    "/api/demo/audio/{intent}.mp3": {
+      "get": {
+        "operationId": "demo_audio_api_demo_audio__intent__mp3_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "intent",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Intent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "audio/mpeg": {}
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Demo Audio",
+        "tags": [
+          "demo"
+        ]
+      }
+    },
+    "/api/events": {
+      "get": {
+        "operationId": "stream_events_api_events_get",
+        "responses": {
+          "200": {
+            "content": {
+              "text/event-stream": {}
+            },
+            "description": "SSE stream. `event: turn` carries a Turn, `event: dataset` a DatasetInfo, `event: ping` is a keepalive every 15s."
+          }
+        },
+        "summary": "Stream Events",
+        "tags": [
+          "events"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/query": {
+      "post": {
+        "operationId": "query_api_query_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turn"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Query",
+        "tags": [
+          "query"
+        ]
+      }
+    },
+    "/api/turns/latest": {
+      "get": {
+        "operationId": "latest_turn_api_turns_latest_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turn"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "204": {
+            "description": "No turns yet"
+          }
+        },
+        "summary": "Latest Turn",
+        "tags": [
+          "query"
+        ]
+      }
+    },
+    "/api/voice/session": {
+      "get": {
+        "operationId": "voice_session_api_voice_session_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoiceSession"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Voice Session",
+        "tags": [
+          "voice"
+        ]
+      }
+    },
+    "/v1/chat/completions": {
+      "post": {
+        "operationId": "chat_completions_v1_chat_completions_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatCompletionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "text/event-stream": {}
+            },
+            "description": "chat.completion JSON, or an SSE stream of chat.completion.chunk objects ending in `data: [DONE]` when stream=true."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Chat Completions",
+        "tags": [
+          "llm-proxy"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "turn_id": "e5d4c3b2-a190-4f8e-9d7c-6b5a4f3e2d10",
+  "created_at": "2026-09-19T17:00:15Z",
+  "channel": "text",
+  "query_text": "What's the weather?",
+  "intent": "unknown",
+  "narration": "I don't know that. I can tell you what's unusual, how your month is going, where your money went, or how it compares to last month.",
+  "narration_source": "template",
+  "fact_bundle": null,
+  "guard": { "passed": true, "attempts": 0, "rejected_tokens": [] },
+  "latency_ms": { "analysis": 0, "narration": 0, "total": 1 },
+  "audio_url": null
+}

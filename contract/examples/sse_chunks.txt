@@ -1,0 +1,8 @@
+data: {"id": "chatcmpl-example", "object": "chat.completion.chunk", "created": 1789840800, "model": "beacon", "choices": [{"index": 0, "delta": {"role": "assistant", "content": "Your spending is normal except for one thing: you paid three new subscriptions this month that you didn't pay last month, totaling $47. "}, "finish_reason": null}]}
+
+data: {"id": "chatcmpl-example", "object": "chat.completion.chunk", "created": 1789840800, "model": "beacon", "choices": [{"index": 0, "delta": {"content": "There's also a possible duplicate charge of $38.50 at Corner Bistro."}, "finish_reason": null}]}
+
+data: {"id": "chatcmpl-example", "object": "chat.completion.chunk", "created": 1789840800, "model": "beacon", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]}
+
+data: [DONE]
+

@@ -1,0 +1,5 @@
+{
+  "agent_id": "agent_example_id",
+  "signed_url": "wss://api.elevenlabs.io/v1/convai/conversation?agent_id=agent_example_id&conversation_signature=example",
+  "conversation_token": null
+}

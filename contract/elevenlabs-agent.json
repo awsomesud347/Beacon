@@ -1,0 +1,22 @@
+{
+  "_note": "Snapshot of the ElevenLabs agent settings. Apply to your own agent in the dashboard; keep both agents identical. Verify field names against current ElevenLabs docs.",
+  "name": "Beacon",
+  "language": "en",
+  "first_message": "Hi, I'm Beacon. Ask me how your month is going, or what's unusual.",
+  "llm": {
+    "provider": "custom_llm",
+    "url": "https://<your-ngrok-domain>/v1",
+    "model_id": "beacon",
+    "api_key_secret": "LLM_PROXY_SECRET"
+  },
+  "system_prompt": "You are Beacon. Answers come from the custom LLM verbatim.",
+  "tts": {
+    "voice_id": "<ELEVENLABS_VOICE_ID>",
+    "speed": 1.0
+  },
+  "turn": {
+    "interruptions_enabled": true,
+    "turn_timeout_seconds": 7
+  },
+  "tools": []
+}

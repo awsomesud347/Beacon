@@ -1,0 +1,13 @@
+{
+  "turn_id": "c3a8f5d1-6e7b-4f2a-b0c9-5d4e3f2a1b09",
+  "created_at": "2026-09-19T17:00:10Z",
+  "channel": "text",
+  "query_text": "Should I cancel my gym membership?",
+  "intent": "advice_refused",
+  "narration": "I can't give financial advice, but I can tell you what you spent on it last month.",
+  "narration_source": "refusal",
+  "fact_bundle": null,
+  "guard": { "passed": true, "attempts": 0, "rejected_tokens": [] },
+  "latency_ms": { "analysis": 0, "narration": 0, "total": 1 },
+  "audio_url": null
+}
