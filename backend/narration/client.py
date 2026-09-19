@@ -38,17 +38,24 @@ def _client() -> tuple[OpenAI, str] | None:
     return None
 
 
+def tidy_numbers(text: str) -> str:
+    """Formatting only, never values: $47.0/$47.00 -> $47, $38.5 -> $38.50, 100.0% -> 100%."""
+    text = re.sub(r"(\$\d[\d,]*)\.0{1,2}(?!\d)", r"\1", text)
+    text = re.sub(r"(\$\d[\d,]*\.\d)(?!\d)", r"\g<1>0", text)
+    return re.sub(r"(\d)\.0(?=%)", r"\1", text)
+
+
 def _clean(text: str) -> str:
     text = _THINK.sub("", text or "")
     text = re.sub(r"[*_#`]", "", text)
-    return " ".join(text.split())
+    return tidy_numbers(" ".join(text.split()))
 
 
-def _complete(client: OpenAI, model: str, messages: list[dict]) -> str:
+def _complete(client: OpenAI, model: str, messages: list[dict], temperature: float) -> str:
     resp = client.chat.completions.create(
         model=model,
         messages=messages,
-        temperature=0.2,
+        temperature=temperature,
         max_tokens=220,
         extra_body={"chat_template_kwargs": {"enable_thinking": False}},
     )
@@ -70,26 +77,22 @@ def narrate(bundle: FactBundle, discreet: bool = False) -> Narration:
         return template(bundle, discreet)
     client, model = configured
     intent = bundle.query_type.value
-    messages = [
-        {"role": "system", "content": prompts.SYSTEM},
-        {"role": "user", "content": prompts.user_message(bundle.model_dump_json(), intent)},
-    ]
+    bundle_json = bundle.model_dump_json(exclude_none=True)
     rejected: list[str] = []
     attempts = 0
     try:
-        for attempt in (1, 2):
-            text = _complete(client, model, messages)
+        # Retry starts fresh (not "please fix"), names the bad figures, and runs warmer so it
+        # doesn't reproduce the same sentence.
+        for attempt, temperature in ((1, 0.2), (2, 0.6)):
+            msgs = prompts.messages(bundle_json, intent, rejected or None)
+            text = _complete(client, model, msgs, temperature)
             attempts = attempt
             result = guard.check(text, bundle)
             guard.record(intent, attempt, result, text)
             if result.passed and text:
                 return Narration(text, NarrationSource.model,
                                  GuardResult(passed=True, attempts=attempt))
-            rejected += result.rejected
-            messages += [
-                {"role": "assistant", "content": text},
-                {"role": "user", "content": prompts.RETRY.format(rejected=", ".join(rejected))},
-            ]
+            rejected += [t for t in result.rejected if t not in rejected]
     except Exception:
         log.exception("narration model call failed; using template")
     return template(bundle, attempts=attempts, rejected=rejected)

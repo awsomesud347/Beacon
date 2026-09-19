@@ -5,6 +5,7 @@ from backend.analysis.summarize import build_bundle
 from backend.contract import FactBundle, Intent
 from backend.contract_export import CONTRACT_DIR
 from backend.narration import guard, templates
+from backend.narration.client import tidy_numbers
 from data.generate import FIXTURES
 
 BUNDLE = FactBundle.model_validate_json(
@@ -55,6 +56,20 @@ def test_templates_always_pass_guard(intent, discreet):
         bundle = build_bundle(load_path(FIXTURES / fixture).df, intent)
         text = templates.render(bundle, discreet)
         assert guard.check(text, bundle).passed, text
+
+
+@pytest.mark.parametrize(
+    "raw,tidy",
+    [
+        ("totaling $47.0 and $1,450.00", "totaling $47 and $1,450"),
+        ("charged $38.5 twice", "charged $38.50 twice"),
+        ("down 100.0% and up 6.8%", "down 100% and up 6.8%"),
+        ("$2,992.94 stays", "$2,992.94 stays"),
+    ],
+)
+def test_tidy_numbers_only_changes_formatting(raw, tidy):
+    assert tidy_numbers(raw) == tidy
+    assert guard.check(tidy, BUNDLE).passed == guard.check(raw, BUNDLE).passed
 
 
 def test_discreet_templates_speak_no_money():
