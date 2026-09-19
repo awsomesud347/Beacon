@@ -1,22 +1,38 @@
 {
-  "_note": "Snapshot of the ElevenLabs agent settings. Apply to your own agent in the dashboard; keep both agents identical. Verify field names against current ElevenLabs docs.",
+  "_note": "Snapshot of the ElevenLabs agent settings, verified against a published agent on 2026-09-19. Apply to your own agent in the dashboard; keep both agents identical. Placeholders in <angle brackets> are per-developer.",
+  "_gotchas": [
+    "Editing fields does NOT save them. The save button is 'Publish' (top right); an orange dot means unsaved changes. 'Test Connection' validates the dialog values without persisting them.",
+    "Start from the Blank template. Prebuilt templates ship a persona prompt that encourages rephrasing, and any number the agent invents bypasses the backend numeric guard.",
+    "backup_llm must be disabled. On 'default', a failure of our backend silently hands the question to a fallback model with no fact bundle, which will invent figures. Silence is the correct failure mode.",
+    "Server URL must end in /v1; the dashboard appends /chat/completions itself.",
+    "ngrok free serves an interstitial (ERR_NGROK_6024) to browser user agents. Server-to-server calls from ElevenLabs pass through, but add the ngrok-skip-browser-warning header if you see HTML instead of JSON.",
+    "Verify field names against current ElevenLabs docs; the dashboard layout moves."
+  ],
   "name": "Beacon",
   "language": "en",
   "first_message": "Hi, I'm Beacon. Ask me how your month is going, or what's unusual.",
+  "system_prompt": "You are Beacon. Answers come from the custom LLM verbatim.",
   "llm": {
     "provider": "custom_llm",
+    "api_type": "chat_completions",
     "url": "https://<your-ngrok-domain>/v1",
     "model_id": "beacon",
-    "api_key_secret": "LLM_PROXY_SECRET"
+    "api_key_secret": "<workspace secret holding LLM_PROXY_SECRET>",
+    "backup_llm": "disabled",
+    "request_headers": {}
   },
-  "system_prompt": "You are Beacon. Answers come from the custom LLM verbatim.",
   "tts": {
     "voice_id": "<ELEVENLABS_VOICE_ID>",
-    "speed": 1.0
+    "model_id": "eleven_flash_v2",
+    "speed": 1.0,
+    "expressive_mode": false,
+    "optimize_streaming_latency": 3
   },
   "turn": {
+    "mode": "turn",
     "interruptions_enabled": true,
     "turn_timeout_seconds": 7
   },
+  "agent_behavior": "default personality off",
   "tools": []
 }
