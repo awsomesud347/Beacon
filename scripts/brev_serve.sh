@@ -22,6 +22,9 @@ if [ ! -x "$VENV/bin/vllm" ]; then
   uv pip install --python "$VENV/bin/python" "vllm>=0.15.1"
 fi
 
+# FlashInfer's sampler JIT-builds with nvcc, which Brev's base image lacks; use vLLM's own.
+export VLLM_USE_FLASHINFER_SAMPLER=0
+
 mkdir -p "$WORKDIR" && cd "$WORKDIR"
 PARSER=nano_v3_reasoning_parser.py
 [ -f "$PARSER" ] || curl -fsSLO "https://huggingface.co/${MODEL}/resolve/main/${PARSER}"
