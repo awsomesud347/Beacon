@@ -14,6 +14,8 @@ KEY="${BEACON_LLM_KEY:-$(cat "$HOME/.beacon_llm_key" 2>/dev/null || true)}"
 
 export PATH="$HOME/.local/bin:$PATH"
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
+# Triton / torch.compile JIT-compile kernels at startup and need a C compiler.
+command -v gcc >/dev/null || sudo -n apt-get install -y build-essential
 
 if [ ! -x "$VENV/bin/vllm" ]; then
   uv venv --python 3.12 "$VENV"
