@@ -14,8 +14,9 @@ from collections.abc import Iterator
 from fastapi import APIRouter, Header
 from fastapi.responses import StreamingResponse
 
+from backend import stub
 from backend.config import get_settings
-from backend.contract import ApiError, ChatCompletionRequest, ErrorCode
+from backend.contract import ApiError, Channel, ChatCompletionRequest, ErrorCode
 from backend.errors import ApiException, not_implemented
 
 router = APIRouter(prefix="/v1", tags=["llm-proxy"])
@@ -105,4 +106,7 @@ def respond(narration: str, stream: bool):
 )
 def chat_completions(req: ChatCompletionRequest, authorization: str | None = Header(None)):
     check_auth(authorization)
+    if get_settings().stub_mode:
+        turn = stub.query(last_user_text(req), Channel.voice)
+        return respond(turn.narration, req.stream)
     raise not_implemented("chat completions")
