@@ -1,15 +1,30 @@
+import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend import service, state
 from backend.config import get_settings
 from backend.contract import CONTRACT_VERSION, SseEvent
 from backend.errors import install_error_handlers
 from backend.routes import dataset, demo, events, health, llm_proxy, query, voice
 
 
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    settings = get_settings()
+    logging.basicConfig(level=settings.log_level)
+    if not settings.stub_mode:
+        state.load_default()
+        service.warm_async()
+    yield
+
+
 def create_app() -> FastAPI:
     settings = get_settings()
-    app = FastAPI(title="Beacon API", version=CONTRACT_VERSION)
+    app = FastAPI(title="Beacon API", version=CONTRACT_VERSION, lifespan=lifespan)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[o.strip() for o in settings.cors_origins.split(",") if o.strip()],
