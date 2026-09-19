@@ -1,0 +1,1028 @@
+date,merchant,amount,category,account
+2025-07-31,ACME PAYROLL,2841.50,income,checking
+2025-08-01,METRO TRANSIT,-2.75,transport,checking
+2025-08-01,CHIPOTLE 1123,-27.09,dining,credit
+2025-08-01,STARBUCKS #2231,-4.83,coffee,credit
+2025-08-02,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2025-08-02,PANERA BREAD #601,-21.76,dining,credit
+2025-08-02,TARGET T-1432,-47.91,shopping,credit
+2025-08-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2025-08-03,UBER *TRIP,-24.17,transport,credit
+2025-08-05,METRO TRANSIT,-2.75,transport,checking
+2025-08-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2025-08-05,STARBUCKS #2231,-4.65,coffee,credit
+2025-08-06,STARBUCKS #2231,-5.47,coffee,credit
+2025-08-07,METRO TRANSIT,-2.75,transport,checking
+2025-08-07,AMAZON MKTPLACE PMTS,-18.57,shopping,credit
+2025-08-07,BLUE BOTTLE COFFEE,-6.67,coffee,credit
+2025-08-07,NETFLIX.COM,-15.49,subscriptions,credit
+2025-08-07,SHELL OIL 5741,-35.90,transport,credit
+2025-08-08,PANERA BREAD #601,-18.05,dining,credit
+2025-08-08,TRADER JOE'S #551,-70.82,groceries,credit
+2025-08-09,METRO TRANSIT,-2.75,transport,checking
+2025-08-09,KROGER #412,-73.18,groceries,credit
+2025-08-09,PANERA BREAD #601,-15.58,dining,credit
+2025-08-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2025-08-10,THAI SPICE,-22.66,dining,credit
+2025-08-11,METRO TRANSIT,-2.75,transport,checking
+2025-08-12,METRO TRANSIT,-2.75,transport,checking
+2025-08-12,BLUE BOTTLE COFFEE,-5.02,coffee,credit
+2025-08-12,SPOTIFY USA,-11.99,subscriptions,credit
+2025-08-13,METRO TRANSIT,-2.75,transport,checking
+2025-08-13,BLUE BOTTLE COFFEE,-5.45,coffee,credit
+2025-08-13,PANERA BREAD #601,-19.88,dining,credit
+2025-08-14,ACME PAYROLL,2841.50,income,checking
+2025-08-14,METRO TRANSIT,-2.75,transport,checking
+2025-08-14,AMAZON MKTPLACE PMTS,-31.12,shopping,credit
+2025-08-14,AMC THEATRES 0412,-28.64,entertainment,credit
+2025-08-14,UBER *TRIP,-21.72,transport,credit
+2025-08-15,CITY POWER & LIGHT,-74.25,utilities,checking
+2025-08-15,METRO TRANSIT,-2.75,transport,checking
+2025-08-15,PANERA BREAD #601,-17.92,dining,credit
+2025-08-17,TRADER JOE'S #551,-71.69,groceries,credit
+2025-08-18,AMAZON MKTPLACE PMTS,-18.37,shopping,credit
+2025-08-18,HULU 877-8244858,-7.99,subscriptions,credit
+2025-08-18,STARBUCKS #2231,-5.35,coffee,credit
+2025-08-19,SHELL OIL 5741,-42.65,transport,credit
+2025-08-19,STARBUCKS #2231,-4.93,coffee,credit
+2025-08-20,METRO TRANSIT,-2.75,transport,checking
+2025-08-20,METRO WATER DEPT,-35.71,utilities,checking
+2025-08-21,METRO TRANSIT,-2.75,transport,checking
+2025-08-21,UBER *TRIP,-22.26,transport,credit
+2025-08-22,METRO TRANSIT,-2.75,transport,checking
+2025-08-22,BLUE BOTTLE COFFEE,-5.31,coffee,credit
+2025-08-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2025-08-22,THAI SPICE,-27.31,dining,credit
+2025-08-22,UBER *TRIP,-31.06,transport,credit
+2025-08-23,METRO TRANSIT,-2.75,transport,checking
+2025-08-23,BEST BUY 00412,-895.07,shopping,credit
+2025-08-23,TRADER JOE'S #551,-48.57,groceries,credit
+2025-08-24,METRO TRANSIT,-2.75,transport,checking
+2025-08-25,METRO TRANSIT,-2.75,transport,checking
+2025-08-25,BLUE BOTTLE COFFEE,-5.01,coffee,credit
+2025-08-25,THAI SPICE,-12.60,dining,credit
+2025-08-26,METRO TRANSIT,-2.75,transport,checking
+2025-08-27,METRO TRANSIT,-2.75,transport,checking
+2025-08-27,STARBUCKS #2231,-5.26,coffee,credit
+2025-08-28,ACME PAYROLL,2841.50,income,checking
+2025-08-28,CVS/PHARMACY #0921,-16.12,health,credit
+2025-08-28,KROGER #412,-94.01,groceries,credit
+2025-08-28,STARBUCKS #2231,-5.58,coffee,credit
+2025-08-29,SHELL OIL 5741,-40.29,transport,credit
+2025-08-29,STARBUCKS #2231,-5.63,coffee,credit
+2025-08-29,TRADER JOE'S #551,-56.95,groceries,credit
+2025-08-30,CHIPOTLE 1123,-26.54,dining,credit
+2025-08-31,CHIPOTLE 1123,-24.81,dining,credit
+2025-09-01,METRO TRANSIT,-2.75,transport,checking
+2025-09-01,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2025-09-01,KROGER #412,-72.69,groceries,credit
+2025-09-01,STARBUCKS #2231,-5.58,coffee,credit
+2025-09-01,TARGET T-1432,-64.10,shopping,credit
+2025-09-02,METRO TRANSIT,-2.75,transport,checking
+2025-09-02,BLUE BOTTLE COFFEE,-5.70,coffee,credit
+2025-09-03,METRO TRANSIT,-2.75,transport,checking
+2025-09-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2025-09-03,STARBUCKS #2231,-5.62,coffee,credit
+2025-09-04,METRO TRANSIT,-2.75,transport,checking
+2025-09-04,CHIPOTLE 1123,-29.39,dining,credit
+2025-09-04,WHOLE FOODS MKT,-71.23,groceries,credit
+2025-09-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2025-09-06,METRO TRANSIT,-2.75,transport,checking
+2025-09-06,PANERA BREAD #601,-18.26,dining,credit
+2025-09-06,UBER *TRIP,-29.00,transport,credit
+2025-09-07,NETFLIX.COM,-15.49,subscriptions,credit
+2025-09-07,STARBUCKS #2231,-5.15,coffee,credit
+2025-09-08,METRO TRANSIT,-2.75,transport,checking
+2025-09-08,AMC THEATRES 0412,-21.92,entertainment,credit
+2025-09-08,KROGER #412,-75.17,groceries,credit
+2025-09-08,SHELL OIL 5741,-45.01,transport,credit
+2025-09-08,THAI SPICE,-12.06,dining,credit
+2025-09-09,METRO TRANSIT,-2.75,transport,checking
+2025-09-09,STARBUCKS #2231,-5.70,coffee,credit
+2025-09-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2025-09-10,UBER *TRIP,-12.55,transport,credit
+2025-09-11,ACME PAYROLL,2841.50,income,checking
+2025-09-11,METRO TRANSIT,-2.75,transport,checking
+2025-09-11,STARBUCKS #2231,-5.74,coffee,credit
+2025-09-11,THAI SPICE,-20.57,dining,credit
+2025-09-12,METRO TRANSIT,-2.75,transport,checking
+2025-09-12,SPOTIFY USA,-11.99,subscriptions,credit
+2025-09-12,UBER *TRIP,-17.07,transport,credit
+2025-09-13,METRO TRANSIT,-2.75,transport,checking
+2025-09-14,PANERA BREAD #601,-20.79,dining,credit
+2025-09-14,WHOLE FOODS MKT,-79.75,groceries,credit
+2025-09-15,CITY POWER & LIGHT,-81.18,utilities,checking
+2025-09-15,CVS/PHARMACY #0921,-20.90,health,credit
+2025-09-15,STARBUCKS #2231,-5.67,coffee,credit
+2025-09-16,METRO TRANSIT,-2.75,transport,checking
+2025-09-17,METRO TRANSIT,-2.75,transport,checking
+2025-09-18,HULU 877-8244858,-7.99,subscriptions,credit
+2025-09-18,PANERA BREAD #601,-20.86,dining,credit
+2025-09-19,BLUE BOTTLE COFFEE,-5.96,coffee,credit
+2025-09-20,METRO TRANSIT,-2.75,transport,checking
+2025-09-20,METRO WATER DEPT,-33.11,utilities,checking
+2025-09-20,AMAZON MKTPLACE PMTS,-23.37,shopping,credit
+2025-09-20,BLUE BOTTLE COFFEE,-6.55,coffee,credit
+2025-09-20,SHELL OIL 5741,-31.69,transport,credit
+2025-09-20,WHOLE FOODS MKT,-55.84,groceries,credit
+2025-09-21,STARBUCKS #2231,-5.70,coffee,credit
+2025-09-22,METRO TRANSIT,-2.75,transport,checking
+2025-09-22,BLUE BOTTLE COFFEE,-4.53,coffee,credit
+2025-09-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2025-09-22,UBER *TRIP,-13.37,transport,credit
+2025-09-23,METRO TRANSIT,-2.75,transport,checking
+2025-09-23,BLUE BOTTLE COFFEE,-5.00,coffee,credit
+2025-09-23,CHIPOTLE 1123,-22.74,dining,credit
+2025-09-25,ACME PAYROLL,2841.50,income,checking
+2025-09-25,METRO TRANSIT,-2.75,transport,checking
+2025-09-26,BLUE BOTTLE COFFEE,-5.20,coffee,credit
+2025-09-26,PANERA BREAD #601,-17.52,dining,credit
+2025-09-27,THAI SPICE,-18.74,dining,credit
+2025-09-27,UBER *TRIP,-17.13,transport,credit
+2025-09-28,METRO TRANSIT,-2.75,transport,checking
+2025-09-28,AMAZON MKTPLACE PMTS,-59.49,shopping,credit
+2025-09-28,BLUE BOTTLE COFFEE,-5.73,coffee,credit
+2025-09-28,WHOLE FOODS MKT,-55.24,groceries,credit
+2025-09-29,BLUE BOTTLE COFFEE,-4.96,coffee,credit
+2025-09-29,PANERA BREAD #601,-39.19,dining,credit
+2025-09-30,METRO TRANSIT,-2.75,transport,checking
+2025-09-30,TRADER JOE'S #551,-65.62,groceries,credit
+2025-10-01,METRO TRANSIT,-2.75,transport,checking
+2025-10-01,BLUE BOTTLE COFFEE,-5.84,coffee,credit
+2025-10-02,METRO TRANSIT,-2.75,transport,checking
+2025-10-02,CVS/PHARMACY #0921,-18.55,health,credit
+2025-10-02,SHELL OIL 5741,-36.31,transport,credit
+2025-10-02,STARBUCKS #2231,-5.59,coffee,credit
+2025-10-02,UBER *TRIP,-17.76,transport,credit
+2025-10-03,METRO TRANSIT,-2.75,transport,checking
+2025-10-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2025-10-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2025-10-03,STARBUCKS #2231,-4.90,coffee,credit
+2025-10-03,UBER *TRIP,-25.87,transport,credit
+2025-10-04,CHIPOTLE 1123,-23.72,dining,credit
+2025-10-04,TARGET T-1432,-46.36,shopping,credit
+2025-10-05,METRO TRANSIT,-2.75,transport,checking
+2025-10-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2025-10-05,THAI SPICE,-41.19,dining,credit
+2025-10-06,METRO TRANSIT,-2.75,transport,checking
+2025-10-06,BLUE BOTTLE COFFEE,-5.25,coffee,credit
+2025-10-07,AMAZON MKTPLACE PMTS,-37.15,shopping,credit
+2025-10-07,BLUE BOTTLE COFFEE,-5.81,coffee,credit
+2025-10-07,NETFLIX.COM,-15.49,subscriptions,credit
+2025-10-08,METRO TRANSIT,-2.75,transport,checking
+2025-10-09,ACME PAYROLL,2841.50,income,checking
+2025-10-09,BLUE BOTTLE COFFEE,-4.30,coffee,credit
+2025-10-09,UBER *TRIP,-12.40,transport,credit
+2025-10-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2025-10-11,METRO TRANSIT,-2.75,transport,checking
+2025-10-11,PANERA BREAD #601,-23.25,dining,credit
+2025-10-11,TARGET T-1432,-61.04,shopping,credit
+2025-10-11,TRADER JOE'S #551,-75.70,groceries,credit
+2025-10-12,SPOTIFY USA,-11.99,subscriptions,credit
+2025-10-12,TRADER JOE'S #551,-71.12,groceries,credit
+2025-10-12,UBER *TRIP,-16.55,transport,credit
+2025-10-13,METRO TRANSIT,-2.75,transport,checking
+2025-10-13,PANERA BREAD #601,-26.50,dining,credit
+2025-10-13,SHELL OIL 5741,-46.73,transport,credit
+2025-10-13,STARBUCKS #2231,-5.03,coffee,credit
+2025-10-14,METRO TRANSIT,-2.75,transport,checking
+2025-10-14,STARBUCKS #2231,-4.83,coffee,credit
+2025-10-14,UBER *TRIP,-14.36,transport,credit
+2025-10-15,CITY POWER & LIGHT,-95.87,utilities,checking
+2025-10-15,METRO TRANSIT,-2.75,transport,checking
+2025-10-15,BLUE BOTTLE COFFEE,-5.23,coffee,credit
+2025-10-15,WHOLE FOODS MKT,-91.31,groceries,credit
+2025-10-16,METRO TRANSIT,-2.75,transport,checking
+2025-10-16,AMAZON MKTPLACE PMTS,-25.40,shopping,credit
+2025-10-17,STARBUCKS #2231,-6.29,coffee,credit
+2025-10-18,METRO TRANSIT,-2.75,transport,checking
+2025-10-18,CHIPOTLE 1123,-19.70,dining,credit
+2025-10-18,HULU 877-8244858,-7.99,subscriptions,credit
+2025-10-18,TRADER JOE'S #551,-71.92,groceries,credit
+2025-10-19,CHIPOTLE 1123,-16.29,dining,credit
+2025-10-19,UBER *TRIP,-19.26,transport,credit
+2025-10-20,METRO TRANSIT,-2.75,transport,checking
+2025-10-20,METRO WATER DEPT,-30.26,utilities,checking
+2025-10-20,STARBUCKS #2231,-6.09,coffee,credit
+2025-10-20,THAI SPICE,-28.55,dining,credit
+2025-10-21,METRO TRANSIT,-2.75,transport,checking
+2025-10-21,STARBUCKS #2231,-6.52,coffee,credit
+2025-10-21,TRADER JOE'S #551,-50.06,groceries,credit
+2025-10-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2025-10-22,UBER *TRIP,-12.42,transport,credit
+2025-10-23,ACME PAYROLL,2841.50,income,checking
+2025-10-23,BLUE BOTTLE COFFEE,-5.76,coffee,credit
+2025-10-24,BLUE BOTTLE COFFEE,-6.19,coffee,credit
+2025-10-24,UBER *TRIP,-27.85,transport,credit
+2025-10-25,METRO TRANSIT,-2.75,transport,checking
+2025-10-25,SHELL OIL 5741,-39.88,transport,credit
+2025-10-26,THAI SPICE,-24.96,dining,credit
+2025-10-26,TRADER JOE'S #551,-98.54,groceries,credit
+2025-10-27,METRO TRANSIT,-2.75,transport,checking
+2025-10-28,BLUE BOTTLE COFFEE,-5.46,coffee,credit
+2025-10-29,METRO TRANSIT,-2.75,transport,checking
+2025-10-29,STARBUCKS #2231,-5.67,coffee,credit
+2025-10-30,METRO TRANSIT,-2.75,transport,checking
+2025-10-30,STARBUCKS #2231,-5.48,coffee,credit
+2025-10-30,WHOLE FOODS MKT,-75.17,groceries,credit
+2025-10-31,PANERA BREAD #601,-20.37,dining,credit
+2025-10-31,UBER *TRIP,-14.52,transport,credit
+2025-11-01,AMC THEATRES 0412,-31.87,entertainment,credit
+2025-11-01,BLUE BOTTLE COFFEE,-6.86,coffee,credit
+2025-11-01,PANERA BREAD #601,-26.60,dining,credit
+2025-11-02,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2025-11-02,KROGER #412,-69.13,groceries,credit
+2025-11-02,SHELL OIL 5741,-42.31,transport,credit
+2025-11-03,METRO TRANSIT,-2.75,transport,checking
+2025-11-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2025-11-03,BLUE BOTTLE COFFEE,-6.19,coffee,credit
+2025-11-04,METRO TRANSIT,-2.75,transport,checking
+2025-11-05,METRO TRANSIT,-2.75,transport,checking
+2025-11-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2025-11-05,BLUE BOTTLE COFFEE,-4.39,coffee,credit
+2025-11-05,TARGET T-1432,-27.99,shopping,credit
+2025-11-06,METRO TRANSIT,-2.75,transport,checking
+2025-11-07,ACME PAYROLL,2841.50,income,checking
+2025-11-07,METRO TRANSIT,-2.75,transport,checking
+2025-11-07,CHIPOTLE 1123,-19.47,dining,credit
+2025-11-07,CVS/PHARMACY #0921,-31.62,health,credit
+2025-11-07,NETFLIX.COM,-15.49,subscriptions,credit
+2025-11-08,CHIPOTLE 1123,-22.90,dining,credit
+2025-11-08,KROGER #412,-80.46,groceries,credit
+2025-11-08,UBER *TRIP,-29.35,transport,credit
+2025-11-09,THAI SPICE,-18.39,dining,credit
+2025-11-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2025-11-10,METRO TRANSIT,-2.75,transport,checking
+2025-11-11,METRO TRANSIT,-2.75,transport,checking
+2025-11-11,SHELL OIL 5741,-43.50,transport,credit
+2025-11-11,STARBUCKS #2231,-5.92,coffee,credit
+2025-11-11,TARGET T-1432,-41.60,shopping,credit
+2025-11-12,METRO TRANSIT,-2.75,transport,checking
+2025-11-12,SPOTIFY USA,-11.99,subscriptions,credit
+2025-11-12,STARBUCKS #2231,-5.92,coffee,credit
+2025-11-13,METRO TRANSIT,-2.75,transport,checking
+2025-11-13,AMAZON MKTPLACE PMTS,-38.74,shopping,credit
+2025-11-13,THAI SPICE,-18.33,dining,credit
+2025-11-13,TRADER JOE'S #551,-99.21,groceries,credit
+2025-11-14,BLUE BOTTLE COFFEE,-6.42,coffee,credit
+2025-11-14,KROGER #412,-79.68,groceries,credit
+2025-11-15,CITY POWER & LIGHT,-125.34,utilities,checking
+2025-11-15,STARBUCKS #2231,-5.31,coffee,credit
+2025-11-16,METRO TRANSIT,-2.75,transport,checking
+2025-11-16,CHIPOTLE 1123,-21.78,dining,credit
+2025-11-17,METRO TRANSIT,-2.75,transport,checking
+2025-11-17,AMAZON MKTPLACE PMTS,-27.76,shopping,credit
+2025-11-17,STARBUCKS #2231,-5.67,coffee,credit
+2025-11-18,HULU 877-8244858,-7.99,subscriptions,credit
+2025-11-18,UBER *TRIP,-19.64,transport,credit
+2025-11-19,METRO TRANSIT,-2.75,transport,checking
+2025-11-19,STARBUCKS #2231,-6.09,coffee,credit
+2025-11-20,METRO TRANSIT,-2.75,transport,checking
+2025-11-20,METRO WATER DEPT,-45.19,utilities,checking
+2025-11-21,ACME PAYROLL,2841.50,income,checking
+2025-11-21,PANERA BREAD #601,-18.18,dining,credit
+2025-11-22,METRO TRANSIT,-2.75,transport,checking
+2025-11-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2025-11-22,PANERA BREAD #601,-34.32,dining,credit
+2025-11-22,SHELL OIL 5741,-44.80,transport,credit
+2025-11-22,TRADER JOE'S #551,-57.68,groceries,credit
+2025-11-22,UBER *TRIP,-19.58,transport,credit
+2025-11-24,METRO TRANSIT,-2.75,transport,checking
+2025-11-24,BLUE BOTTLE COFFEE,-6.31,coffee,credit
+2025-11-25,METRO TRANSIT,-2.75,transport,checking
+2025-11-25,BLUE BOTTLE COFFEE,-5.00,coffee,credit
+2025-11-25,CHIPOTLE 1123,-28.65,dining,credit
+2025-11-25,UBER *TRIP,-10.74,transport,credit
+2025-11-26,METRO TRANSIT,-2.75,transport,checking
+2025-11-26,IKEA SEATTLE,-1023.16,shopping,credit
+2025-11-26,STARBUCKS #2231,-6.60,coffee,credit
+2025-11-27,METRO TRANSIT,-2.75,transport,checking
+2025-11-27,STARBUCKS #2231,-7.69,coffee,credit
+2025-11-27,TRADER JOE'S #551,-68.89,groceries,credit
+2025-11-27,UBER *TRIP,-15.77,transport,credit
+2025-11-30,METRO TRANSIT,-2.75,transport,checking
+2025-11-30,KROGER #412,-52.36,groceries,credit
+2025-11-30,SHELL OIL 5741,-38.05,transport,credit
+2025-11-30,THAI SPICE,-30.42,dining,credit
+2025-12-01,BLUE BOTTLE COFFEE,-4.75,coffee,credit
+2025-12-01,CHIPOTLE 1123,-16.88,dining,credit
+2025-12-01,UBER *TRIP,-13.51,transport,credit
+2025-12-02,AMAZON MKTPLACE PMTS,-68.09,shopping,credit
+2025-12-02,AMC THEATRES 0412,-27.33,entertainment,credit
+2025-12-02,WHOLE FOODS MKT,-61.72,groceries,credit
+2025-12-03,METRO TRANSIT,-2.75,transport,checking
+2025-12-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2025-12-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2025-12-03,STARBUCKS #2231,-5.89,coffee,credit
+2025-12-04,AMAZON MKTPLACE PMTS,-65.62,shopping,credit
+2025-12-04,STARBUCKS #2231,-4.86,coffee,credit
+2025-12-05,ACME PAYROLL,2841.50,income,checking
+2025-12-05,METRO TRANSIT,-2.75,transport,checking
+2025-12-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2025-12-05,AMAZON MKTPLACE PMTS,-117.82,shopping,credit
+2025-12-05,BLUE BOTTLE COFFEE,-4.43,coffee,credit
+2025-12-05,CHIPOTLE 1123,-22.29,dining,credit
+2025-12-05,UBER *TRIP,-18.56,transport,credit
+2025-12-06,METRO TRANSIT,-2.75,transport,checking
+2025-12-06,WHOLE FOODS MKT,-80.81,groceries,credit
+2025-12-07,CHIPOTLE 1123,-21.66,dining,credit
+2025-12-07,NETFLIX.COM,-15.49,subscriptions,credit
+2025-12-08,STARBUCKS #2231,-6.04,coffee,credit
+2025-12-09,STARBUCKS #2231,-5.23,coffee,credit
+2025-12-09,WHOLE FOODS MKT,-74.81,groceries,credit
+2025-12-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2025-12-10,METRO TRANSIT,-2.75,transport,checking
+2025-12-10,STARBUCKS #2231,-4.81,coffee,credit
+2025-12-11,TARGET T-1432,-113.79,shopping,credit
+2025-12-12,SHELL OIL 5741,-49.15,transport,credit
+2025-12-12,SPOTIFY USA,-11.99,subscriptions,credit
+2025-12-12,UBER *TRIP,-14.10,transport,credit
+2025-12-13,METRO TRANSIT,-2.75,transport,checking
+2025-12-13,WHOLE FOODS MKT,-59.02,groceries,credit
+2025-12-14,METRO TRANSIT,-2.75,transport,checking
+2025-12-14,AMAZON MKTPLACE PMTS,-29.72,shopping,credit
+2025-12-14,PANERA BREAD #601,-17.78,dining,credit
+2025-12-15,CITY POWER & LIGHT,-139.06,utilities,checking
+2025-12-16,METRO TRANSIT,-2.75,transport,checking
+2025-12-16,STARBUCKS #2231,-5.32,coffee,credit
+2025-12-16,TARGET T-1432,-82.77,shopping,credit
+2025-12-17,METRO TRANSIT,-2.75,transport,checking
+2025-12-17,BLUE BOTTLE COFFEE,-6.11,coffee,credit
+2025-12-17,WHOLE FOODS MKT,-69.14,groceries,credit
+2025-12-18,METRO TRANSIT,-2.75,transport,checking
+2025-12-18,HULU 877-8244858,-7.99,subscriptions,credit
+2025-12-18,STARBUCKS #2231,-4.71,coffee,credit
+2025-12-18,TARGET T-1432,-143.84,shopping,credit
+2025-12-19,ACME PAYROLL,2841.50,income,checking
+2025-12-19,BLUE BOTTLE COFFEE,-5.20,coffee,credit
+2025-12-19,THAI SPICE,-28.58,dining,credit
+2025-12-19,UBER *TRIP,-30.03,transport,credit
+2025-12-20,METRO WATER DEPT,-35.68,utilities,checking
+2025-12-20,PANERA BREAD #601,-19.46,dining,credit
+2025-12-20,UBER *TRIP,-23.24,transport,credit
+2025-12-21,METRO TRANSIT,-2.75,transport,checking
+2025-12-21,WHOLE FOODS MKT,-58.42,groceries,credit
+2025-12-22,METRO TRANSIT,-2.75,transport,checking
+2025-12-22,BLUE BOTTLE COFFEE,-7.49,coffee,credit
+2025-12-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2025-12-22,SHELL OIL 5741,-43.18,transport,credit
+2025-12-23,TARGET T-1432,-118.73,shopping,credit
+2025-12-23,TARGET T-1432,-48.70,shopping,credit
+2025-12-24,METRO TRANSIT,-2.75,transport,checking
+2025-12-25,KROGER #412,-57.70,groceries,credit
+2025-12-25,STARBUCKS #2231,-5.21,coffee,credit
+2025-12-26,STARBUCKS #2231,-6.60,coffee,credit
+2025-12-26,THAI SPICE,-25.16,dining,credit
+2025-12-26,UBER *TRIP,-11.43,transport,credit
+2025-12-27,TARGET T-1432,-40.71,shopping,credit
+2025-12-28,METRO TRANSIT,-2.75,transport,checking
+2025-12-28,PANERA BREAD #601,-17.07,dining,credit
+2025-12-29,METRO TRANSIT,-2.75,transport,checking
+2025-12-29,BLUE BOTTLE COFFEE,-6.09,coffee,credit
+2025-12-31,PANERA BREAD #601,-18.97,dining,credit
+2026-01-01,ACME PAYROLL,2841.50,income,checking
+2026-01-01,STARBUCKS #2231,-4.94,coffee,credit
+2026-01-02,CVS/PHARMACY #0921,-21.71,health,credit
+2026-01-02,STARBUCKS #2231,-6.05,coffee,credit
+2026-01-02,THAI SPICE,-20.66,dining,credit
+2026-01-02,WHOLE FOODS MKT,-89.38,groceries,credit
+2026-01-03,METRO TRANSIT,-2.75,transport,checking
+2026-01-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-01-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-01-03,IKEA SEATTLE,-1080.55,shopping,credit
+2026-01-03,SHELL OIL 5741,-47.16,transport,credit
+2026-01-04,METRO TRANSIT,-2.75,transport,checking
+2026-01-04,STARBUCKS #2231,-5.87,coffee,credit
+2026-01-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2026-01-05,BLUE BOTTLE COFFEE,-5.02,coffee,credit
+2026-01-06,METRO TRANSIT,-2.75,transport,checking
+2026-01-06,STARBUCKS #2231,-5.23,coffee,credit
+2026-01-06,WHOLE FOODS MKT,-69.22,groceries,credit
+2026-01-07,METRO TRANSIT,-2.75,transport,checking
+2026-01-07,BLUE BOTTLE COFFEE,-6.60,coffee,credit
+2026-01-07,CHIPOTLE 1123,-32.97,dining,credit
+2026-01-07,NETFLIX.COM,-15.49,subscriptions,credit
+2026-01-08,METRO TRANSIT,-2.75,transport,checking
+2026-01-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-01-11,METRO TRANSIT,-2.75,transport,checking
+2026-01-11,BLUE BOTTLE COFFEE,-5.71,coffee,credit
+2026-01-11,SHELL OIL 5741,-38.24,transport,credit
+2026-01-11,WHOLE FOODS MKT,-54.93,groceries,credit
+2026-01-12,AMAZON MKTPLACE PMTS,-30.06,shopping,credit
+2026-01-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-01-12,STARBUCKS #2231,-5.10,coffee,credit
+2026-01-14,METRO TRANSIT,-2.75,transport,checking
+2026-01-14,STARBUCKS #2231,-4.07,coffee,credit
+2026-01-15,ACME PAYROLL,2841.50,income,checking
+2026-01-15,CITY POWER & LIGHT,-157.77,utilities,checking
+2026-01-15,METRO TRANSIT,-2.75,transport,checking
+2026-01-15,PANERA BREAD #601,-23.24,dining,credit
+2026-01-15,TARGET T-1432,-110.45,shopping,credit
+2026-01-16,STARBUCKS #2231,-5.79,coffee,credit
+2026-01-16,WHOLE FOODS MKT,-87.23,groceries,credit
+2026-01-17,AMC THEATRES 0412,-27.03,entertainment,credit
+2026-01-18,METRO TRANSIT,-2.75,transport,checking
+2026-01-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-01-18,STARBUCKS #2231,-5.75,coffee,credit
+2026-01-19,BLUE BOTTLE COFFEE,-4.27,coffee,credit
+2026-01-20,METRO WATER DEPT,-29.56,utilities,checking
+2026-01-21,PANERA BREAD #601,-21.97,dining,credit
+2026-01-21,STARBUCKS #2231,-5.48,coffee,credit
+2026-01-21,UBER *TRIP,-39.87,transport,credit
+2026-01-22,BLUE BOTTLE COFFEE,-7.40,coffee,credit
+2026-01-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-01-22,SHELL OIL 5741,-39.15,transport,credit
+2026-01-23,METRO TRANSIT,-2.75,transport,checking
+2026-01-24,METRO TRANSIT,-2.75,transport,checking
+2026-01-25,METRO TRANSIT,-2.75,transport,checking
+2026-01-25,CHIPOTLE 1123,-13.76,dining,credit
+2026-01-25,TRADER JOE'S #551,-65.09,groceries,credit
+2026-01-26,METRO TRANSIT,-2.75,transport,checking
+2026-01-26,STARBUCKS #2231,-5.45,coffee,credit
+2026-01-26,THAI SPICE,-23.28,dining,credit
+2026-01-27,METRO TRANSIT,-2.75,transport,checking
+2026-01-27,STARBUCKS #2231,-5.44,coffee,credit
+2026-01-28,AMAZON MKTPLACE PMTS,-22.32,shopping,credit
+2026-01-29,METRO TRANSIT,-2.75,transport,checking
+2026-01-29,STARBUCKS #2231,-5.58,coffee,credit
+2026-01-30,ACME PAYROLL,2841.50,income,checking
+2026-01-31,WHOLE FOODS MKT,-75.16,groceries,credit
+2026-02-01,PANERA BREAD #601,-25.82,dining,credit
+2026-02-02,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-02-02,SHELL OIL 5741,-41.79,transport,credit
+2026-02-03,METRO TRANSIT,-2.75,transport,checking
+2026-02-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-02-04,PANERA BREAD #601,-29.23,dining,credit
+2026-02-04,STARBUCKS #2231,-7.74,coffee,credit
+2026-02-04,WHOLE FOODS MKT,-71.42,groceries,credit
+2026-02-05,METRO TRANSIT,-2.75,transport,checking
+2026-02-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2026-02-06,METRO TRANSIT,-2.75,transport,checking
+2026-02-07,METRO TRANSIT,-2.75,transport,checking
+2026-02-07,NETFLIX.COM,-15.49,subscriptions,credit
+2026-02-07,STARBUCKS #2231,-5.44,coffee,credit
+2026-02-08,METRO TRANSIT,-2.75,transport,checking
+2026-02-08,STARBUCKS #2231,-5.96,coffee,credit
+2026-02-08,THAI SPICE,-21.21,dining,credit
+2026-02-08,UBER *TRIP,-18.94,transport,credit
+2026-02-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-02-11,METRO TRANSIT,-2.75,transport,checking
+2026-02-12,AMAZON MKTPLACE PMTS,-33.64,shopping,credit
+2026-02-12,BLUE BOTTLE COFFEE,-6.31,coffee,credit
+2026-02-12,SHELL OIL 5741,-47.10,transport,credit
+2026-02-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-02-12,TARGET T-1432,-48.61,shopping,credit
+2026-02-12,UBER *TRIP,-11.53,transport,credit
+2026-02-13,ACME PAYROLL,2841.50,income,checking
+2026-02-13,METRO TRANSIT,-2.75,transport,checking
+2026-02-13,CHIPOTLE 1123,-19.27,dining,credit
+2026-02-13,UBER *TRIP,-14.67,transport,credit
+2026-02-13,WHOLE FOODS MKT,-104.67,groceries,credit
+2026-02-14,METRO TRANSIT,-2.75,transport,checking
+2026-02-14,CVS/PHARMACY #0921,-19.07,health,credit
+2026-02-14,THAI SPICE,-20.06,dining,credit
+2026-02-14,WHOLE FOODS MKT,-81.05,groceries,credit
+2026-02-15,CITY POWER & LIGHT,-150.62,utilities,checking
+2026-02-15,STARBUCKS #2231,-5.73,coffee,credit
+2026-02-15,THAI SPICE,-19.04,dining,credit
+2026-02-16,METRO TRANSIT,-2.75,transport,checking
+2026-02-16,STARBUCKS #2231,-6.88,coffee,credit
+2026-02-17,CHIPOTLE 1123,-21.56,dining,credit
+2026-02-17,KROGER #412,-77.81,groceries,credit
+2026-02-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-02-19,METRO TRANSIT,-2.75,transport,checking
+2026-02-19,CHIPOTLE 1123,-20.98,dining,credit
+2026-02-20,METRO WATER DEPT,-40.60,utilities,checking
+2026-02-20,BLUE BOTTLE COFFEE,-4.97,coffee,credit
+2026-02-21,AMAZON MKTPLACE PMTS,-39.86,shopping,credit
+2026-02-21,SHELL OIL 5741,-44.01,transport,credit
+2026-02-21,STARBUCKS #2231,-5.08,coffee,credit
+2026-02-22,METRO TRANSIT,-2.75,transport,checking
+2026-02-22,BLUE BOTTLE COFFEE,-6.02,coffee,credit
+2026-02-22,CHIPOTLE 1123,-24.33,dining,credit
+2026-02-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-02-23,METRO TRANSIT,-2.75,transport,checking
+2026-02-23,PANERA BREAD #601,-34.09,dining,credit
+2026-02-23,STARBUCKS #2231,-5.26,coffee,credit
+2026-02-24,TARGET T-1432,-66.39,shopping,credit
+2026-02-25,METRO TRANSIT,-2.75,transport,checking
+2026-02-25,WHOLE FOODS MKT,-82.92,groceries,credit
+2026-02-26,ACME PAYROLL,2841.50,income,checking
+2026-02-26,METRO TRANSIT,-2.75,transport,checking
+2026-02-26,BLUE BOTTLE COFFEE,-4.98,coffee,credit
+2026-02-27,METRO TRANSIT,-2.75,transport,checking
+2026-02-27,AMAZON MKTPLACE PMTS,-35.62,shopping,credit
+2026-02-28,CHIPOTLE 1123,-21.82,dining,credit
+2026-03-01,UBER *TRIP,-25.79,transport,credit
+2026-03-01,WHOLE FOODS MKT,-51.14,groceries,credit
+2026-03-02,METRO TRANSIT,-2.75,transport,checking
+2026-03-02,BLUE BOTTLE COFFEE,-4.39,coffee,credit
+2026-03-02,WHOLE FOODS MKT,-113.09,groceries,credit
+2026-03-03,METRO TRANSIT,-2.75,transport,checking
+2026-03-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-03-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-03-03,TARGET T-1432,-74.17,shopping,credit
+2026-03-04,METRO TRANSIT,-2.75,transport,checking
+2026-03-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2026-03-05,SHELL OIL 5741,-44.64,transport,credit
+2026-03-06,METRO TRANSIT,-2.75,transport,checking
+2026-03-06,STARBUCKS #2231,-5.82,coffee,credit
+2026-03-06,UBER *TRIP,-19.46,transport,credit
+2026-03-07,METRO TRANSIT,-2.75,transport,checking
+2026-03-07,NETFLIX.COM,-15.49,subscriptions,credit
+2026-03-07,PANERA BREAD #601,-15.28,dining,credit
+2026-03-07,UBER *TRIP,-10.13,transport,credit
+2026-03-08,KROGER #412,-75.19,groceries,credit
+2026-03-08,STARBUCKS #2231,-5.76,coffee,credit
+2026-03-09,METRO TRANSIT,-2.75,transport,checking
+2026-03-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-03-10,METRO TRANSIT,-2.75,transport,checking
+2026-03-10,AMAZON MKTPLACE PMTS,-22.93,shopping,credit
+2026-03-10,BLUE BOTTLE COFFEE,-4.91,coffee,credit
+2026-03-10,CHIPOTLE 1123,-25.91,dining,credit
+2026-03-10,TARGET T-1432,-47.42,shopping,credit
+2026-03-11,METRO TRANSIT,-2.75,transport,checking
+2026-03-11,AMAZON MKTPLACE PMTS,-53.44,shopping,credit
+2026-03-11,STARBUCKS #2231,-4.58,coffee,credit
+2026-03-11,THAI SPICE,-20.11,dining,credit
+2026-03-12,METRO TRANSIT,-2.75,transport,checking
+2026-03-12,AMAZON MKTPLACE PMTS,-51.10,shopping,credit
+2026-03-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-03-13,ACME PAYROLL,2841.50,income,checking
+2026-03-13,METRO TRANSIT,-2.75,transport,checking
+2026-03-13,KROGER #412,-69.50,groceries,credit
+2026-03-15,CITY POWER & LIGHT,-105.95,utilities,checking
+2026-03-15,CHIPOTLE 1123,-18.58,dining,credit
+2026-03-15,WHOLE FOODS MKT,-73.70,groceries,credit
+2026-03-16,METRO TRANSIT,-2.75,transport,checking
+2026-03-16,SHELL OIL 5741,-44.00,transport,credit
+2026-03-17,STARBUCKS #2231,-5.41,coffee,credit
+2026-03-17,UBER *TRIP,-21.11,transport,credit
+2026-03-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-03-18,STARBUCKS #2231,-5.80,coffee,credit
+2026-03-19,UBER *TRIP,-17.67,transport,credit
+2026-03-20,METRO TRANSIT,-2.75,transport,checking
+2026-03-20,METRO WATER DEPT,-39.81,utilities,checking
+2026-03-20,BLUE BOTTLE COFFEE,-6.05,coffee,credit
+2026-03-21,THAI SPICE,-29.79,dining,credit
+2026-03-21,WHOLE FOODS MKT,-89.44,groceries,credit
+2026-03-22,METRO TRANSIT,-2.75,transport,checking
+2026-03-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-03-22,PANERA BREAD #601,-30.92,dining,credit
+2026-03-22,STARBUCKS #2231,-5.53,coffee,credit
+2026-03-22,WHOLE FOODS MKT,-65.49,groceries,credit
+2026-03-23,METRO TRANSIT,-2.75,transport,checking
+2026-03-24,BLUE BOTTLE COFFEE,-4.42,coffee,credit
+2026-03-26,ACME PAYROLL,2841.50,income,checking
+2026-03-26,METRO TRANSIT,-2.75,transport,checking
+2026-03-27,METRO TRANSIT,-2.75,transport,checking
+2026-03-27,AMC THEATRES 0412,-26.51,entertainment,credit
+2026-03-27,BLUE BOTTLE COFFEE,-5.29,coffee,credit
+2026-03-27,SHELL OIL 5741,-48.89,transport,credit
+2026-03-28,METRO TRANSIT,-2.75,transport,checking
+2026-03-28,KROGER #412,-66.61,groceries,credit
+2026-03-28,THAI SPICE,-23.80,dining,credit
+2026-03-29,CHIPOTLE 1123,-19.99,dining,credit
+2026-03-30,UBER *TRIP,-15.55,transport,credit
+2026-04-01,STARBUCKS #2231,-5.59,coffee,credit
+2026-04-02,METRO TRANSIT,-2.75,transport,checking
+2026-04-03,METRO TRANSIT,-2.75,transport,checking
+2026-04-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-04-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-04-03,STARBUCKS #2231,-4.59,coffee,credit
+2026-04-03,THAI SPICE,-31.57,dining,credit
+2026-04-04,METRO TRANSIT,-2.75,transport,checking
+2026-04-04,THAI SPICE,-23.24,dining,credit
+2026-04-04,UBER *TRIP,-22.57,transport,credit
+2026-04-04,WHOLE FOODS MKT,-53.94,groceries,credit
+2026-04-05,METRO TRANSIT,-2.75,transport,checking
+2026-04-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2026-04-06,METRO TRANSIT,-2.75,transport,checking
+2026-04-07,METRO TRANSIT,-2.75,transport,checking
+2026-04-07,NETFLIX.COM,-15.49,subscriptions,credit
+2026-04-07,SHELL OIL 5741,-45.76,transport,credit
+2026-04-07,STARBUCKS #2231,-5.58,coffee,credit
+2026-04-07,TARGET T-1432,-42.31,shopping,credit
+2026-04-07,WHOLE FOODS MKT,-87.97,groceries,credit
+2026-04-08,METRO TRANSIT,-2.75,transport,checking
+2026-04-08,CHIPOTLE 1123,-19.63,dining,credit
+2026-04-10,ACME PAYROLL,2841.50,income,checking
+2026-04-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-04-10,METRO TRANSIT,-2.75,transport,checking
+2026-04-10,BLUE BOTTLE COFFEE,-5.97,coffee,credit
+2026-04-10,KROGER #412,-61.55,groceries,credit
+2026-04-10,THAI SPICE,-17.20,dining,credit
+2026-04-11,PANERA BREAD #601,-29.64,dining,credit
+2026-04-11,UBER *TRIP,-13.71,transport,credit
+2026-04-12,AMAZON MKTPLACE PMTS,-23.54,shopping,credit
+2026-04-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-04-12,UBER *TRIP,-19.59,transport,credit
+2026-04-13,METRO TRANSIT,-2.75,transport,checking
+2026-04-13,TARGET T-1432,-66.22,shopping,credit
+2026-04-14,METRO TRANSIT,-2.75,transport,checking
+2026-04-14,BLUE BOTTLE COFFEE,-8.09,coffee,credit
+2026-04-15,CITY POWER & LIGHT,-77.20,utilities,checking
+2026-04-15,SHELL OIL 5741,-44.43,transport,credit
+2026-04-15,TRADER JOE'S #551,-88.46,groceries,credit
+2026-04-16,METRO TRANSIT,-2.75,transport,checking
+2026-04-16,PANERA BREAD #601,-36.53,dining,credit
+2026-04-16,STARBUCKS #2231,-4.73,coffee,credit
+2026-04-16,UBER *TRIP,-23.18,transport,credit
+2026-04-18,METRO TRANSIT,-2.75,transport,checking
+2026-04-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-04-19,METRO TRANSIT,-2.75,transport,checking
+2026-04-19,UBER *TRIP,-17.81,transport,credit
+2026-04-19,WHOLE FOODS MKT,-75.09,groceries,credit
+2026-04-20,METRO TRANSIT,-2.75,transport,checking
+2026-04-20,METRO WATER DEPT,-43.49,utilities,checking
+2026-04-20,STARBUCKS #2231,-5.48,coffee,credit
+2026-04-21,METRO TRANSIT,-2.75,transport,checking
+2026-04-21,AMAZON MKTPLACE PMTS,-18.48,shopping,credit
+2026-04-21,BLUE BOTTLE COFFEE,-4.76,coffee,credit
+2026-04-21,UBER *TRIP,-13.92,transport,credit
+2026-04-22,METRO TRANSIT,-2.75,transport,checking
+2026-04-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-04-23,CVS/PHARMACY #0921,-17.55,health,credit
+2026-04-23,PANERA BREAD #601,-18.44,dining,credit
+2026-04-24,ACME PAYROLL,2841.50,income,checking
+2026-04-24,METRO TRANSIT,-2.75,transport,checking
+2026-04-24,AMAZON MKTPLACE PMTS,-34.12,shopping,credit
+2026-04-24,STARBUCKS #2231,-5.12,coffee,credit
+2026-04-24,WHOLE FOODS MKT,-49.25,groceries,credit
+2026-04-25,METRO TRANSIT,-2.75,transport,checking
+2026-04-25,THAI SPICE,-26.81,dining,credit
+2026-04-25,WHOLE FOODS MKT,-81.15,groceries,credit
+2026-04-26,PANERA BREAD #601,-17.47,dining,credit
+2026-04-26,SHELL OIL 5741,-34.73,transport,credit
+2026-04-26,STARBUCKS #2231,-4.43,coffee,credit
+2026-04-27,METRO TRANSIT,-2.75,transport,checking
+2026-04-27,BLUE BOTTLE COFFEE,-5.13,coffee,credit
+2026-04-27,UBER *TRIP,-13.32,transport,credit
+2026-04-28,METRO TRANSIT,-2.75,transport,checking
+2026-04-28,PANERA BREAD #601,-23.90,dining,credit
+2026-04-29,KROGER #412,-67.87,groceries,credit
+2026-04-30,METRO TRANSIT,-2.75,transport,checking
+2026-04-30,BLUE BOTTLE COFFEE,-6.20,coffee,credit
+2026-05-01,METRO TRANSIT,-2.75,transport,checking
+2026-05-02,METRO TRANSIT,-2.75,transport,checking
+2026-05-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-05-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-05-03,BLUE BOTTLE COFFEE,-5.44,coffee,credit
+2026-05-03,THAI SPICE,-21.49,dining,credit
+2026-05-03,UBER *TRIP,-15.99,transport,credit
+2026-05-04,METRO TRANSIT,-2.75,transport,checking
+2026-05-04,STARBUCKS #2231,-4.62,coffee,credit
+2026-05-04,WHOLE FOODS MKT,-98.91,groceries,credit
+2026-05-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2026-05-05,AMAZON MKTPLACE PMTS,-80.03,shopping,credit
+2026-05-05,AMC THEATRES 0412,-26.86,entertainment,credit
+2026-05-05,SHELL OIL 5741,-47.75,transport,credit
+2026-05-06,METRO TRANSIT,-2.75,transport,checking
+2026-05-07,ACME PAYROLL,2841.50,income,checking
+2026-05-07,NETFLIX.COM,-15.49,subscriptions,credit
+2026-05-07,PANERA BREAD #601,-21.71,dining,credit
+2026-05-07,STARBUCKS #2231,-4.88,coffee,credit
+2026-05-08,METRO TRANSIT,-2.75,transport,checking
+2026-05-09,KROGER #412,-63.26,groceries,credit
+2026-05-09,TARGET T-1432,-29.52,shopping,credit
+2026-05-09,THAI SPICE,-26.35,dining,credit
+2026-05-09,UBER *TRIP,-22.50,transport,credit
+2026-05-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-05-11,PANERA BREAD #601,-18.93,dining,credit
+2026-05-11,STARBUCKS #2231,-6.33,coffee,credit
+2026-05-12,METRO TRANSIT,-2.75,transport,checking
+2026-05-12,AMAZON MKTPLACE PMTS,-17.57,shopping,credit
+2026-05-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-05-13,METRO TRANSIT,-2.75,transport,checking
+2026-05-13,BLUE BOTTLE COFFEE,-5.37,coffee,credit
+2026-05-13,PANERA BREAD #601,-19.23,dining,credit
+2026-05-13,SHELL OIL 5741,-40.84,transport,credit
+2026-05-14,UBER *TRIP,-20.96,transport,credit
+2026-05-15,CITY POWER & LIGHT,-85.06,utilities,checking
+2026-05-15,METRO TRANSIT,-2.75,transport,checking
+2026-05-16,METRO TRANSIT,-2.75,transport,checking
+2026-05-16,TRADER JOE'S #551,-66.69,groceries,credit
+2026-05-16,UBER *TRIP,-30.79,transport,credit
+2026-05-17,BLUE BOTTLE COFFEE,-7.99,coffee,credit
+2026-05-18,METRO TRANSIT,-2.75,transport,checking
+2026-05-18,BLUE BOTTLE COFFEE,-6.60,coffee,credit
+2026-05-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-05-18,WHOLE FOODS MKT,-77.02,groceries,credit
+2026-05-19,METRO TRANSIT,-2.75,transport,checking
+2026-05-20,METRO TRANSIT,-2.75,transport,checking
+2026-05-20,METRO WATER DEPT,-36.12,utilities,checking
+2026-05-21,STARBUCKS #2231,-4.24,coffee,credit
+2026-05-22,ACME PAYROLL,2841.50,income,checking
+2026-05-22,METRO TRANSIT,-2.75,transport,checking
+2026-05-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-05-22,UBER *TRIP,-28.14,transport,credit
+2026-05-23,CHIPOTLE 1123,-31.20,dining,credit
+2026-05-23,KROGER #412,-65.13,groceries,credit
+2026-05-23,STARBUCKS #2231,-5.27,coffee,credit
+2026-05-24,SHELL OIL 5741,-38.12,transport,credit
+2026-05-25,METRO TRANSIT,-2.75,transport,checking
+2026-05-25,STARBUCKS #2231,-5.77,coffee,credit
+2026-05-25,UBER *TRIP,-40.53,transport,credit
+2026-05-26,CVS/PHARMACY #0921,-14.74,health,credit
+2026-05-27,METRO TRANSIT,-2.75,transport,checking
+2026-05-28,METRO TRANSIT,-2.75,transport,checking
+2026-05-28,BLUE BOTTLE COFFEE,-4.66,coffee,credit
+2026-05-29,METRO TRANSIT,-2.75,transport,checking
+2026-05-29,KROGER #412,-61.02,groceries,credit
+2026-05-30,THAI SPICE,-32.14,dining,credit
+2026-05-30,TRADER JOE'S #551,-67.74,groceries,credit
+2026-06-01,BLUE BOTTLE COFFEE,-4.79,coffee,credit
+2026-06-01,UBER *TRIP,-25.62,transport,credit
+2026-06-02,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-06-02,BLUE BOTTLE COFFEE,-5.41,coffee,credit
+2026-06-03,METRO TRANSIT,-2.75,transport,checking
+2026-06-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-06-03,KROGER #412,-71.31,groceries,credit
+2026-06-03,THAI SPICE,-16.38,dining,credit
+2026-06-04,BEST BUY 00412,-324.03,shopping,credit
+2026-06-04,SHELL OIL 5741,-40.43,transport,credit
+2026-06-04,STARBUCKS #2231,-6.15,coffee,credit
+2026-06-05,ACME PAYROLL,2841.50,income,checking
+2026-06-05,METRO TRANSIT,-2.75,transport,checking
+2026-06-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2026-06-05,BLUE BOTTLE COFFEE,-5.15,coffee,credit
+2026-06-07,METRO TRANSIT,-2.75,transport,checking
+2026-06-07,NETFLIX.COM,-15.49,subscriptions,credit
+2026-06-08,METRO TRANSIT,-2.75,transport,checking
+2026-06-08,BLUE BOTTLE COFFEE,-6.27,coffee,credit
+2026-06-09,METRO TRANSIT,-2.75,transport,checking
+2026-06-09,BLUE BOTTLE COFFEE,-5.30,coffee,credit
+2026-06-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-06-10,METRO TRANSIT,-2.75,transport,checking
+2026-06-11,BLUE BOTTLE COFFEE,-6.08,coffee,credit
+2026-06-11,UBER *TRIP,-26.42,transport,credit
+2026-06-12,METRO TRANSIT,-2.75,transport,checking
+2026-06-12,AMAZON MKTPLACE PMTS,-24.03,shopping,credit
+2026-06-12,KROGER #412,-63.22,groceries,credit
+2026-06-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-06-12,TARGET T-1432,-42.50,shopping,credit
+2026-06-12,UBER *TRIP,-14.72,transport,credit
+2026-06-13,BLUE BOTTLE COFFEE,-5.65,coffee,credit
+2026-06-13,KROGER #412,-85.40,groceries,credit
+2026-06-13,THAI SPICE,-17.80,dining,credit
+2026-06-14,AMAZON MKTPLACE PMTS,-34.59,shopping,credit
+2026-06-15,CITY POWER & LIGHT,-79.94,utilities,checking
+2026-06-15,SHELL OIL 5741,-39.21,transport,credit
+2026-06-17,METRO TRANSIT,-2.75,transport,checking
+2026-06-18,METRO TRANSIT,-2.75,transport,checking
+2026-06-18,AMAZON MKTPLACE PMTS,-43.94,shopping,credit
+2026-06-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-06-19,ACME PAYROLL,2841.50,income,checking
+2026-06-19,METRO TRANSIT,-2.75,transport,checking
+2026-06-19,KROGER #412,-77.79,groceries,credit
+2026-06-20,METRO WATER DEPT,-29.19,utilities,checking
+2026-06-20,BLUE BOTTLE COFFEE,-7.45,coffee,credit
+2026-06-20,CHIPOTLE 1123,-33.78,dining,credit
+2026-06-20,TARGET T-1432,-27.67,shopping,credit
+2026-06-20,WHOLE FOODS MKT,-68.80,groceries,credit
+2026-06-21,METRO TRANSIT,-2.75,transport,checking
+2026-06-21,STARBUCKS #2231,-5.32,coffee,credit
+2026-06-22,METRO TRANSIT,-2.75,transport,checking
+2026-06-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-06-22,STARBUCKS #2231,-6.44,coffee,credit
+2026-06-23,METRO TRANSIT,-2.75,transport,checking
+2026-06-23,BLUE BOTTLE COFFEE,-6.79,coffee,credit
+2026-06-23,CVS/PHARMACY #0921,-16.33,health,credit
+2026-06-23,UBER *TRIP,-14.63,transport,credit
+2026-06-24,METRO TRANSIT,-2.75,transport,checking
+2026-06-24,BLUE BOTTLE COFFEE,-5.66,coffee,credit
+2026-06-25,METRO TRANSIT,-2.75,transport,checking
+2026-06-25,BLUE BOTTLE COFFEE,-5.73,coffee,credit
+2026-06-25,SHELL OIL 5741,-36.25,transport,credit
+2026-06-26,METRO TRANSIT,-2.75,transport,checking
+2026-06-27,TRADER JOE'S #551,-69.80,groceries,credit
+2026-06-28,PANERA BREAD #601,-20.93,dining,credit
+2026-06-29,METRO TRANSIT,-2.75,transport,checking
+2026-06-30,METRO TRANSIT,-2.75,transport,checking
+2026-07-01,METRO TRANSIT,-2.75,transport,checking
+2026-07-01,PANERA BREAD #601,-19.27,dining,credit
+2026-07-02,ACME PAYROLL,2841.50,income,checking
+2026-07-02,AMAZON MKTPLACE PMTS,-32.45,shopping,credit
+2026-07-02,STARBUCKS #2231,-5.09,coffee,credit
+2026-07-02,WHOLE FOODS MKT,-57.95,groceries,credit
+2026-07-03,METRO TRANSIT,-2.75,transport,checking
+2026-07-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-07-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-07-04,AMC THEATRES 0412,-27.22,entertainment,credit
+2026-07-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2026-07-05,STARBUCKS #2231,-3.99,coffee,credit
+2026-07-06,METRO TRANSIT,-2.75,transport,checking
+2026-07-06,BLUE BOTTLE COFFEE,-4.95,coffee,credit
+2026-07-06,CVS/PHARMACY #0921,-11.51,health,credit
+2026-07-07,METRO TRANSIT,-2.75,transport,checking
+2026-07-07,NETFLIX.COM,-15.49,subscriptions,credit
+2026-07-07,SHELL OIL 5741,-48.46,transport,credit
+2026-07-08,AMAZON MKTPLACE PMTS,-63.03,shopping,credit
+2026-07-08,STARBUCKS #2231,-5.76,coffee,credit
+2026-07-09,AMAZON MKTPLACE PMTS,-30.10,shopping,credit
+2026-07-09,STARBUCKS #2231,-5.35,coffee,credit
+2026-07-09,THAI SPICE,-23.47,dining,credit
+2026-07-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-07-10,THAI SPICE,-23.05,dining,credit
+2026-07-10,WHOLE FOODS MKT,-87.21,groceries,credit
+2026-07-11,METRO TRANSIT,-2.75,transport,checking
+2026-07-12,BLUE BOTTLE COFFEE,-4.47,coffee,credit
+2026-07-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-07-13,METRO TRANSIT,-2.75,transport,checking
+2026-07-13,STARBUCKS #2231,-5.21,coffee,credit
+2026-07-14,BLUE BOTTLE COFFEE,-6.32,coffee,credit
+2026-07-15,CITY POWER & LIGHT,-81.47,utilities,checking
+2026-07-15,METRO TRANSIT,-2.75,transport,checking
+2026-07-15,THAI SPICE,-18.92,dining,credit
+2026-07-16,STARBUCKS #2231,-5.16,coffee,credit
+2026-07-17,ACME PAYROLL,2841.50,income,checking
+2026-07-17,METRO TRANSIT,-2.75,transport,checking
+2026-07-17,BLUE BOTTLE COFFEE,-5.85,coffee,credit
+2026-07-17,THAI SPICE,-25.70,dining,credit
+2026-07-17,UBER *TRIP,-18.83,transport,credit
+2026-07-17,WHOLE FOODS MKT,-51.02,groceries,credit
+2026-07-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-07-18,THAI SPICE,-11.53,dining,credit
+2026-07-19,SHELL OIL 5741,-40.97,transport,credit
+2026-07-20,METRO TRANSIT,-2.75,transport,checking
+2026-07-20,METRO WATER DEPT,-35.46,utilities,checking
+2026-07-20,STARBUCKS #2231,-5.08,coffee,credit
+2026-07-21,METRO TRANSIT,-2.75,transport,checking
+2026-07-21,BLUE BOTTLE COFFEE,-5.56,coffee,credit
+2026-07-22,CHIPOTLE 1123,-32.44,dining,credit
+2026-07-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-07-22,UBER *TRIP,-33.06,transport,credit
+2026-07-23,METRO TRANSIT,-2.75,transport,checking
+2026-07-23,BLUE BOTTLE COFFEE,-5.52,coffee,credit
+2026-07-24,METRO TRANSIT,-2.75,transport,checking
+2026-07-24,WHOLE FOODS MKT,-50.17,groceries,credit
+2026-07-27,METRO TRANSIT,-2.75,transport,checking
+2026-07-27,SHELL OIL 5741,-39.12,transport,credit
+2026-07-27,TARGET T-1432,-52.44,shopping,credit
+2026-07-28,METRO TRANSIT,-2.75,transport,checking
+2026-07-28,STARBUCKS #2231,-6.59,coffee,credit
+2026-07-30,ACME PAYROLL,2841.50,income,checking
+2026-07-30,BLUE BOTTLE COFFEE,-7.73,coffee,credit
+2026-07-31,METRO TRANSIT,-2.75,transport,checking
+2026-07-31,KROGER #412,-53.08,groceries,credit
+2026-08-01,STARBUCKS #2231,-4.86,coffee,credit
+2026-08-01,THAI SPICE,-31.46,dining,credit
+2026-08-02,BLUE BOTTLE COFFEE,-5.24,coffee,credit
+2026-08-02,THAI SPICE,-34.56,dining,credit
+2026-08-02,TRADER JOE'S #551,-62.05,groceries,credit
+2026-08-02,UBER *TRIP,-22.50,transport,credit
+2026-08-03,METRO TRANSIT,-2.75,transport,checking
+2026-08-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-08-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-08-04,CHIPOTLE 1123,-27.44,dining,credit
+2026-08-05,METRO TRANSIT,-2.75,transport,checking
+2026-08-05,PLANET FITNESS #1123,-24.99,subscriptions,checking
+2026-08-05,BLUE BOTTLE COFFEE,-6.19,coffee,credit
+2026-08-05,SHELL OIL 5741,-37.51,transport,credit
+2026-08-06,METRO TRANSIT,-2.75,transport,checking
+2026-08-06,KROGER #412,-80.91,groceries,credit
+2026-08-06,STARBUCKS #2231,-6.14,coffee,credit
+2026-08-06,UBER *TRIP,-20.43,transport,credit
+2026-08-07,METRO TRANSIT,-2.75,transport,checking
+2026-08-07,NETFLIX.COM,-15.49,subscriptions,credit
+2026-08-07,STARBUCKS #2231,-5.89,coffee,credit
+2026-08-07,TARGET T-1432,-95.42,shopping,credit
+2026-08-08,KROGER #412,-61.90,groceries,credit
+2026-08-09,STARBUCKS #2231,-6.07,coffee,credit
+2026-08-09,THAI SPICE,-26.32,dining,credit
+2026-08-09,UBER *TRIP,-10.74,transport,credit
+2026-08-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-08-10,STARBUCKS #2231,-4.71,coffee,credit
+2026-08-12,METRO TRANSIT,-2.75,transport,checking
+2026-08-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-08-12,THAI SPICE,-30.73,dining,credit
+2026-08-13,AMAZON MKTPLACE PMTS,-74.65,shopping,credit
+2026-08-13,PANERA BREAD #601,-16.16,dining,credit
+2026-08-13,SHELL OIL 5741,-39.77,transport,credit
+2026-08-13,STARBUCKS #2231,-5.31,coffee,credit
+2026-08-14,ACME PAYROLL,2841.50,income,checking
+2026-08-14,BLUE BOTTLE COFFEE,-4.81,coffee,credit
+2026-08-15,CITY POWER & LIGHT,-89.34,utilities,checking
+2026-08-15,METRO TRANSIT,-2.75,transport,checking
+2026-08-16,METRO TRANSIT,-2.75,transport,checking
+2026-08-16,AMAZON MKTPLACE PMTS,-55.48,shopping,credit
+2026-08-16,TRADER JOE'S #551,-52.10,groceries,credit
+2026-08-17,METRO TRANSIT,-2.75,transport,checking
+2026-08-17,TARGET T-1432,-54.83,shopping,credit
+2026-08-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-08-18,PANERA BREAD #601,-24.23,dining,credit
+2026-08-18,STARBUCKS #2231,-5.37,coffee,credit
+2026-08-19,METRO TRANSIT,-2.75,transport,checking
+2026-08-19,AMAZON MKTPLACE PMTS,-18.77,shopping,credit
+2026-08-19,BEST BUY 00412,-807.34,shopping,credit
+2026-08-20,METRO TRANSIT,-2.75,transport,checking
+2026-08-20,METRO WATER DEPT,-41.91,utilities,checking
+2026-08-20,BLUE BOTTLE COFFEE,-5.38,coffee,credit
+2026-08-20,TRADER JOE'S #551,-104.47,groceries,credit
+2026-08-21,SHELL OIL 5741,-41.26,transport,credit
+2026-08-21,THAI SPICE,-15.94,dining,credit
+2026-08-21,UBER *TRIP,-24.44,transport,credit
+2026-08-22,METRO TRANSIT,-2.75,transport,checking
+2026-08-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-08-22,PANERA BREAD #601,-22.34,dining,credit
+2026-08-22,STARBUCKS #2231,-6.44,coffee,credit
+2026-08-23,AMC THEATRES 0412,-19.97,entertainment,credit
+2026-08-23,BLUE BOTTLE COFFEE,-5.42,coffee,credit
+2026-08-23,UBER *TRIP,-20.16,transport,credit
+2026-08-24,METRO TRANSIT,-2.75,transport,checking
+2026-08-26,UBER *TRIP,-12.51,transport,credit
+2026-08-27,METRO TRANSIT,-2.75,transport,checking
+2026-08-27,WHOLE FOODS MKT,-74.34,groceries,credit
+2026-08-28,ACME PAYROLL,2841.50,income,checking
+2026-08-28,METRO TRANSIT,-2.75,transport,checking
+2026-08-28,BLUE BOTTLE COFFEE,-5.30,coffee,credit
+2026-08-28,CHIPOTLE 1123,-15.71,dining,credit
+2026-08-28,UBER *TRIP,-18.93,transport,credit
+2026-08-29,PANERA BREAD #601,-23.03,dining,credit
+2026-08-30,KROGER #412,-105.46,groceries,credit
+2026-08-30,PANERA BREAD #601,-24.36,dining,credit
+2026-08-30,STARBUCKS #2231,-5.37,coffee,credit
+2026-08-31,METRO TRANSIT,-2.75,transport,checking
+2026-08-31,KROGER #412,-55.90,groceries,credit
+2026-08-31,STARBUCKS #2231,-5.80,coffee,credit
+2026-09-01,STARBUCKS #2231,-5.16,coffee,credit
+2026-09-01,UBER *TRIP,-15.70,transport,credit
+2026-09-02,METRO TRANSIT,-2.75,transport,checking
+2026-09-02,SHELL OIL 5741,-36.46,transport,credit
+2026-09-02,STARBUCKS #2231,-7.45,coffee,credit
+2026-09-03,METRO TRANSIT,-2.75,transport,checking
+2026-09-03,OAKWOOD APARTMENTS,-1450.00,rent,checking
+2026-09-03,APPLE.COM/BILL ICLOUD,-2.99,subscriptions,credit
+2026-09-03,BLUE BOTTLE COFFEE,-7.18,coffee,credit
+2026-09-04,METRO TRANSIT,-2.75,transport,checking
+2026-09-04,AMAZON MKTPLACE PMTS,-15.39,shopping,credit
+2026-09-04,UBER *TRIP,-28.99,transport,credit
+2026-09-05,METRO TRANSIT,-2.75,transport,checking
+2026-09-05,THAI SPICE,-27.64,dining,credit
+2026-09-05,WHOLE FOODS MKT,-58.81,groceries,credit
+2026-09-06,CHIPOTLE 1123,-20.27,dining,credit
+2026-09-07,METRO TRANSIT,-2.75,transport,checking
+2026-09-07,CHIPOTLE 1123,-29.13,dining,credit
+2026-09-07,NETFLIX.COM,-17.99,subscriptions,credit
+2026-09-08,METRO TRANSIT,-2.75,transport,checking
+2026-09-08,BLUE BOTTLE COFFEE,-5.54,coffee,credit
+2026-09-08,THAI SPICE,-32.61,dining,credit
+2026-09-09,METRO TRANSIT,-2.75,transport,checking
+2026-09-09,BLUE BOTTLE COFFEE,-5.27,coffee,credit
+2026-09-09,PARAMOUNT+ SUBSCRIPTION,-12.99,subscriptions,credit
+2026-09-10,ACME PAYROLL,2841.50,income,checking
+2026-09-10,COMCAST CABLE COMM,-69.99,utilities,checking
+2026-09-10,METRO TRANSIT,-2.75,transport,checking
+2026-09-11,METRO TRANSIT,-2.75,transport,checking
+2026-09-11,BLUE BOTTLE COFFEE,-5.32,coffee,credit
+2026-09-11,KROGER #412,-84.84,groceries,credit
+2026-09-11,PANERA BREAD #601,-15.83,dining,credit
+2026-09-11,SHELL OIL 5741,-38.41,transport,credit
+2026-09-12,CORNER BISTRO,-38.50,dining,credit
+2026-09-12,PANERA BREAD #601,-23.93,dining,credit
+2026-09-12,SPOTIFY USA,-11.99,subscriptions,credit
+2026-09-12,STARBUCKS #2231,-3.94,coffee,credit
+2026-09-12,UBER *TRIP,-22.12,transport,credit
+2026-09-13,CORNER BISTRO,-38.50,dining,credit
+2026-09-13,UBER *TRIP,-17.43,transport,credit
+2026-09-14,METRO TRANSIT,-2.75,transport,checking
+2026-09-14,AUDIBLE*MEMBERSHIP,-15.99,subscriptions,credit
+2026-09-15,CITY POWER & LIGHT,-76.88,utilities,checking
+2026-09-15,METRO TRANSIT,-2.75,transport,checking
+2026-09-15,CHIPOTLE 1123,-39.79,dining,credit
+2026-09-15,PANERA BREAD #601,-25.15,dining,credit
+2026-09-15,STARBUCKS #2231,-5.32,coffee,credit
+2026-09-16,METRO TRANSIT,-2.75,transport,checking
+2026-09-17,METRO TRANSIT,-2.75,transport,checking
+2026-09-17,CHIPOTLE 1123,-20.93,dining,credit
+2026-09-18,METRO TRANSIT,-2.75,transport,checking
+2026-09-18,HULU 877-8244858,-7.99,subscriptions,credit
+2026-09-18,PANERA BREAD #601,-18.73,dining,credit
+2026-09-18,WHOLE FOODS MKT,-67.07,groceries,credit
+2026-09-19,TARGET T-1432,-49.92,shopping,credit
+2026-09-20,METRO WATER DEPT,-37.94,utilities,checking
+2026-09-20,BLUE BOTTLE COFFEE,-4.44,coffee,credit
+2026-09-21,BLUE BOTTLE COFFEE,-4.76,coffee,credit
+2026-09-21,CHIPOTLE 1123,-24.41,dining,credit
+2026-09-21,CLOUDVAULT BACKUP,-18.02,subscriptions,credit
+2026-09-21,UBER *TRIP,-12.95,transport,credit
+2026-09-22,CVS/PHARMACY #0921,-14.18,health,credit
+2026-09-22,NYTIMES DIGITAL,-17.00,subscriptions,credit
+2026-09-23,METRO TRANSIT,-2.75,transport,checking
+2026-09-23,BLUE BOTTLE COFFEE,-6.98,coffee,credit
+2026-09-23,PANERA BREAD #601,-19.06,dining,credit
+2026-09-23,SHELL OIL 5741,-42.68,transport,credit
+2026-09-24,ACME PAYROLL,2841.50,income,checking
+2026-09-24,METRO TRANSIT,-2.75,transport,checking
+2026-09-24,TRADER JOE'S #551,-58.06,groceries,credit
+2026-09-25,METRO TRANSIT,-2.75,transport,checking
+2026-09-25,AMC THEATRES 0412,-27.08,entertainment,credit
+2026-09-25,PANERA BREAD #601,-20.50,dining,credit
+2026-09-25,TARGET T-1432,-45.81,shopping,credit
+2026-09-26,TRADER JOE'S #551,-58.04,groceries,credit
+2026-09-27,METRO TRANSIT,-2.75,transport,checking
+2026-09-28,METRO TRANSIT,-2.75,transport,checking
+2026-09-28,BLUE BOTTLE COFFEE,-5.99,coffee,credit
+2026-09-28,UBER *TRIP,-12.75,transport,credit
+2026-09-29,CHIPOTLE 1123,-16.60,dining,credit
+2026-09-30,BLUE BOTTLE COFFEE,-5.66,coffee,credit
