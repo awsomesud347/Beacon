@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     dataset_path: str = "data/fixtures/demo_persona.csv"
     stub_mode: bool = False
     demo_mode: bool = False
+    precompute: bool = True
     cors_origins: str = "http://localhost:5173"
     log_level: str = "INFO"
 

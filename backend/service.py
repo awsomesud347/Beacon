@@ -116,5 +116,6 @@ def warm_async() -> None:
             except Exception:
                 log.exception("precompute failed for %s", intent)
 
-    if not get_settings().demo_mode:
+    settings = get_settings()
+    if settings.precompute and not settings.demo_mode:
         threading.Thread(target=run, name="precompute", daemon=True).start()

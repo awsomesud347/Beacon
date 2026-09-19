@@ -17,6 +17,7 @@ SECRET = "test-secret"
 def client(monkeypatch):
     monkeypatch.setenv("STUB_MODE", "0")
     monkeypatch.setenv("NARRATOR", "template")
+    monkeypatch.setenv("PRECOMPUTE", "0")
     monkeypatch.setenv("LLM_PROXY_SECRET", SECRET)
     monkeypatch.setenv("DATASET_PATH", str(FIXTURES / "demo_persona.csv"))
     get_settings.cache_clear()
