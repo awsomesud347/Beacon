@@ -1,0 +1,14 @@
+#!/bin/sh
+# Enforce single-line commit messages (no body, no trailers), max 72 chars.
+msg=$(grep -v '^#' "$1" | sed -e 's/[[:space:]]*$//' | sed -e '/./,$!d' -e :a -e '/^\n*$/{$d;N;ba' -e '}')
+lines=$(printf '%s\n' "$msg" | grep -c .)
+first=$(printf '%s\n' "$msg" | head -n 1)
+
+if [ "$lines" -ne 1 ]; then
+  echo "commit-msg: message must be a single line (no body or trailers)." >&2
+  exit 1
+fi
+if [ "${#first}" -gt 72 ]; then
+  echo "commit-msg: message must be 72 characters or fewer." >&2
+  exit 1
+fi
