@@ -17,7 +17,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-CONTRACT_VERSION = "1"
+CONTRACT_VERSION = "2"
 
 
 # --- Enums -------------------------------------------------------------------
@@ -28,10 +28,50 @@ class Intent(StrEnum):
     month_summary = "month_summary"
     where_money_went = "where_money_went"
     compare_last_month = "compare_last_month"
+    lookup = "lookup"  # any scoped question; the QueryPlan says what was asked
     replay = "replay"
     advice_refused = "advice_refused"
+    identity = "identity"  # "who are you", "is this real data"
     help = "help"
-    unknown = "unknown"
+    unsupported = "unsupported"  # understood, but outside what we can answer
+    unknown = "unknown"  # not understood at all
+
+
+class Metric(StrEnum):
+    total_out = "total_out"
+    total_in = "total_in"
+    net = "net"
+    count = "count"
+    average = "average"
+    largest = "largest"
+    smallest = "smallest"
+    list_recurring = "list_recurring"
+    top_merchants = "top_merchants"
+    top_categories = "top_categories"
+    trend = "trend"
+
+
+class SubjectKind(StrEnum):
+    all = "all"
+    category = "category"
+    merchant = "merchant"
+
+
+class PeriodKind(StrEnum):
+    this_month = "this_month"
+    last_month = "last_month"
+    named_month = "named_month"
+    last_n_days = "last_n_days"
+    this_week = "this_week"
+    last_week = "last_week"
+    this_year = "this_year"
+    all_time = "all_time"
+
+
+class PlanSource(StrEnum):
+    pattern = "pattern"  # deterministic router; no model involved
+    model = "model"  # parsed by the language model, then validated
+    followup = "followup"  # carried over from the previous question
 
 
 class Verdict(StrEnum):
@@ -131,6 +171,54 @@ class Context(BaseModel):
     delta_pct: float
 
 
+# --- Query plan: what the model is allowed to decide (filters, never figures) ----
+
+
+class Subject(BaseModel):
+    """What the question is about. `value` is always a real category or merchant in the
+    loaded ledger — the parser cannot invent one."""
+
+    kind: SubjectKind = SubjectKind.all
+    value: str | None = None
+
+
+class Period(BaseModel):
+    kind: PeriodKind = PeriodKind.this_month
+    label: str = Field(examples=["September 2026", "the last 30 days"])
+    start: date
+    end: date
+
+
+class QueryPlan(BaseModel):
+    """The parsed question. Executed deterministically; no number originates here."""
+
+    metric: Metric
+    subject: Subject = Field(default_factory=Subject)
+    period: Period
+    limit: int | None = Field(default=None, ge=1, le=10)
+    source: PlanSource = PlanSource.pattern
+
+
+class MerchantAmount(BaseModel):
+    merchant: str
+    amount: float
+
+
+class Lookup(BaseModel):
+    """Result of executing a QueryPlan. Every figure computed by pandas."""
+
+    subject_label: str = Field(examples=["groceries", "Kroger", "everything"])
+    period_label: str
+    total: float
+    count: int
+    average: float | None = None
+    prior_total: float | None = None
+    delta_pct: float | None = None
+    largest: MerchantAmount | None = None
+    items: list[CategoryAmount] = Field(default_factory=list, max_length=10)
+    empty: bool = False
+
+
 class FactBundle(BaseModel):
     contract_version: str = CONTRACT_VERSION
     query_type: Intent
@@ -140,6 +228,14 @@ class FactBundle(BaseModel):
     summary: MonthSummary | None = None
     comparison: Comparison | None = None
     context: Context
+    plan: QueryPlan | None = None
+    lookup: Lookup | None = None
+    understood: str | None = Field(
+        default=None,
+        description="Read-back of how the question was understood, set only when something "
+                    "was inferred or carried over from the previous question.",
+        examples=["groceries in July"],
+    )
 
 
 # --- Turn: every answer, text or voice ---------------------------------------
