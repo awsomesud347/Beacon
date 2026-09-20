@@ -14,5 +14,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
+    // Forks rather than worker threads: with the demo stack running, the thread pool
+    // exhausts this machine's memory and the run dies before any test starts.
+    pool: 'forks',
   },
 })
