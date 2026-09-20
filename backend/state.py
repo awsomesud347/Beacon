@@ -36,7 +36,12 @@ class State:
     answers: dict[tuple[Intent, bool], CachedAnswer] = field(default_factory=dict)
     lookups: dict[tuple[str, bool], CachedAnswer] = field(default_factory=dict)
     last_narration: str | None = None
-    last_plan: QueryPlan | None = None  # one turn of memory, for follow-up questions
+    last_plan: QueryPlan | None = None
+    # What was asked and what it was taken to mean, newest last. The planner reads this so
+    # "and last month?" keeps whatever it does not change.
+    history: list[tuple[str, str]] = field(default_factory=list)
+    # Question -> (intent, plan), so repeating a question costs no planning call.
+    decisions: dict[str, tuple] = field(default_factory=dict)
     lock: threading.Lock = field(default_factory=threading.Lock)
 
 
@@ -50,6 +55,8 @@ def _install(ledger: Ledger, raw: bytes) -> DatasetInfo:
         state.answers.clear()
         state.lookups.clear()
         state.last_plan = None
+        state.history.clear()
+        state.decisions.clear()
     return ledger.info
 
 
@@ -102,3 +109,13 @@ def store_lookup(plan: QueryPlan, discreet: bool, answer: CachedAnswer, digest: 
 
 def vocabulary() -> Vocabulary:
     return build_vocab(ledger().df, state.digest)
+
+
+HISTORY_TURNS = 3
+
+
+def remember(question: str, plan: QueryPlan | None) -> None:
+    summary = (f"{plan.metric.value} for {plan.subject.value or 'everything'} "
+               f"over {plan.period.label}") if plan else "nothing to look up"
+    state.history.append((question, summary))
+    del state.history[:-HISTORY_TURNS]

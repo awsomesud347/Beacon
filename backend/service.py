@@ -1,11 +1,9 @@
 """answer(text) -> Turn. The one code path behind both POST /api/query and the voice proxy,
 so typed and spoken answers can never disagree.
 
-Routing order, cheapest and most certain first:
-  1. deterministic patterns  — hero questions, refusals, identity, scoped lookups (no model)
-  2. follow-up merge         — "what about last month?" against the previous plan
-  3. model parser            — anything else, validated back against the real data
-  4. honest refusal          — understood but unanswerable, or not understood at all
+The model understands the question (backend/narration/planner.py); pandas computes every
+figure; the guard checks every figure before it is spoken. A failed or unusable plan falls
+back to an overview answer rather than a dead end — mid-demo, silence is worse than general.
 """
 
 import logging
@@ -15,32 +13,32 @@ import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
-from backend import events, state, transcript
-from backend import intent as routing
+from backend import events, safety, state, transcript
 from backend.analysis.query import understood_phrase
-from backend.analysis.summarize import build_bundle, build_lookup_bundle
+from backend.analysis.summarize import build_lookup_bundle
 from backend.config import get_settings
 from backend.contract import (
     Channel,
     GuardResult,
     Intent,
     Latency,
+    Metric,
     NarrationSource,
+    PeriodKind,
     PlanSource,
     QueryPlan,
     Turn,
 )
-from backend.narration import parser, refusals
+from backend.narration import planner, refusals
 from backend.narration.client import narrate
 
 log = logging.getLogger("beacon.service")
 DEMO_CACHE = Path("data/demo_cache")
-PRECOMPUTE = (Intent.anomalies, Intent.month_summary)
+HISTORY_TURNS = 3
 FIXED_ANSWERS = {
     Intent.advice_refused: (refusals.ADVICE, NarrationSource.refusal),
     Intent.identity: (refusals.IDENTITY, NarrationSource.refusal),
     Intent.help: (refusals.HELP, NarrationSource.template),
-    Intent.unknown: (refusals.UNKNOWN, NarrationSource.template),
 }
 
 
@@ -48,21 +46,40 @@ def _ms(start: float) -> int:
     return int((time.perf_counter() - start) * 1000)
 
 
-def compute(intent: Intent, discreet: bool) -> state.CachedAnswer:
-    """Analysis + narration for one of the standing questions, cached per dataset."""
-    hit = state.cached(intent, discreet)
-    if hit:
+def _today():
+    return state.ledger().df["date"].max().date()
+
+
+def _coverage() -> str:
+    info = state.ledger().info
+    return f"{info.date_min} to {info.date_max}"
+
+
+def fallback_plan() -> QueryPlan:
+    """When understanding fails, still say something true about this month."""
+    from backend.analysis.query import resolve_period
+
+    return QueryPlan(metric=Metric.summary,
+                     period=resolve_period(PeriodKind.this_month, _today()),
+                     source=PlanSource.pattern)
+
+
+def decide(text: str) -> tuple[Intent, QueryPlan | None]:
+    """Hardcoded advice refusal first (§1.3), then the model decides everything else."""
+    if safety.is_advice(text):
+        return Intent.advice_refused, None
+    # Asking the same thing twice should not cost another planning call. Only cached when
+    # there is no history, since a follow-up means the same words can mean something else.
+    cache_key = text.strip().lower()
+    if not state.state.history and (hit := state.state.decisions.get(cache_key)):
         return hit
-    digest = state.state.digest
-    t0 = time.perf_counter()
-    bundle = build_bundle(state.ledger().df, intent)
-    analysis_ms = _ms(t0)
-    t1 = time.perf_counter()
-    narration = narrate(bundle, discreet)
-    answer = state.CachedAnswer(bundle, narration.text, narration.source, narration.guard,
-                                analysis_ms, _ms(t1))
-    state.store(intent, discreet, answer, digest)
-    return answer
+    intent, plan = planner.decide(text, state.vocabulary(), state.state.history,
+                                  _today(), _coverage())
+    if not state.state.history and intent != Intent.unknown:
+        state.state.decisions[cache_key] = (intent, plan)
+    if intent == Intent.unknown:  # model unreachable or unusable: answer generally
+        return Intent.lookup, fallback_plan()
+    return intent, plan
 
 
 def compute_lookup(plan: QueryPlan, discreet: bool, understood: str | None) -> state.CachedAnswer:
@@ -94,37 +111,10 @@ def _demo_turn(intent: Intent) -> Turn | None:
 
 
 def _suggestions() -> list[str]:
-    """Capability examples built from the data actually loaded."""
     vocab = state.vocabulary()
-    category = vocab.categories[0] if vocab.categories else "groceries"
-    for preferred in ("groceries", "dining", "subscriptions"):
-        if preferred in vocab.categories:
-            category = preferred
-            break
+    category = next((c for c in ("groceries", "dining", "subscriptions") if c in
+                     vocab.categories), vocab.categories[0] if vocab.categories else "groceries")
     return ["what's unusual this month", f"how much you spent on {category}"]
-
-
-def resolve(text: str, use_parser: bool = True) -> routing.Routed:
-    """Pattern -> follow-up -> parser. Returns what to answer and whether to read it back."""
-    vocab = state.vocabulary()
-    today = state.ledger().df["date"].max().date()
-    previous = state.state.last_plan
-
-    # Follow-ups are checked first: "and coffee?" must inherit the previous period rather
-    # than be read as a fresh question about this month.
-    if previous and routing.is_followup(text):
-        if merged := routing.merge_followup(text, previous, vocab, today):
-            return routing.Routed(Intent.lookup, plan=merged, inferred=True)
-
-    routed = routing.route(text, vocab, today)
-    if routed.intent != Intent.unknown:
-        return routed
-
-    if use_parser and get_settings().parser_enabled:
-        if plan := parser.parse(text, vocab, previous, today):
-            return routing.Routed(Intent.lookup, plan=plan, inferred=True)
-        return routing.Routed(Intent.unsupported)
-    return routed
 
 
 def answer(text: str, channel: Channel = Channel.text, discreet: bool = False) -> Turn:
@@ -134,8 +124,7 @@ def answer(text: str, channel: Channel = Channel.text, discreet: bool = False) -
     guard = GuardResult(passed=True, attempts=0)
     analysis_ms = narration_ms = 0
 
-    routed = resolve(text)
-    intent = routed.intent
+    intent, plan = decide(text)
 
     if intent == Intent.replay:
         narration = state.state.last_narration or refusals.NOTHING_TO_REPEAT
@@ -148,21 +137,14 @@ def answer(text: str, channel: Channel = Channel.text, discreet: bool = False) -
         narration, source, bundle, guard, audio_url = (
             demo.narration, demo.narration_source, demo.fact_bundle, demo.guard, demo.audio_url
         )
-    elif intent == Intent.lookup and routed.plan is not None:
-        plan = routed.plan
-        # Read the understanding back when anything was inferred, carried over or parsed.
-        understood = (understood_phrase(plan)
-                      if routed.inferred or plan.source != PlanSource.pattern else None)
+    else:
+        plan = plan or fallback_plan()
+        understood = understood_phrase(plan)
         result = compute_lookup(plan, discreet, understood)
         narration, source, bundle, guard = (result.narration, result.source, result.bundle,
                                             result.guard)
         analysis_ms, narration_ms = result.analysis_ms, result.narration_ms
         state.state.last_plan = plan
-    else:
-        result = compute(intent, discreet)
-        narration, source, bundle, guard = (result.narration, result.source, result.bundle,
-                                            result.guard)
-        analysis_ms, narration_ms = result.analysis_ms, result.narration_ms
 
     turn = Turn(
         turn_id=str(uuid.uuid4()),
@@ -178,20 +160,21 @@ def answer(text: str, channel: Channel = Channel.text, discreet: bool = False) -
         audio_url=audio_url,
     )
     state.state.last_narration = narration
+    state.remember(text, plan)
     transcript.record(turn)
     events.publish_turn(turn)
     return turn
 
 
 def warm_async() -> None:
-    """Precompute the hero answers in the background so the first question is instant."""
+    """Load the ledger and build the overview ahead of the first question."""
     def run() -> None:
-        for intent in PRECOMPUTE:
-            try:
-                compute(intent, discreet=False)
-            except Exception:
-                log.exception("precompute failed for %s", intent)
+        try:
+            state.vocabulary()
+            build_lookup_bundle(state.ledger().df, fallback_plan())
+        except Exception:
+            log.exception("warm-up failed")
 
     settings = get_settings()
     if settings.precompute and not settings.demo_mode:
-        threading.Thread(target=run, name="precompute", daemon=True).start()
+        threading.Thread(target=run, name="warmup", daemon=True).start()

@@ -22,12 +22,12 @@ from backend.contract import SubjectKind  # noqa: E402
 # (question, expected intent, expected metric or None, expected subject or None)
 BANK: list[tuple[str, str, str | None, str | None]] = [
     # --- the rehearsed demo questions
-    ("what's unusual?", "anomalies", None, None),
-    ("anything I should know about this month?", "anomalies", None, None),
-    ("how am I doing this month?", "month_summary", None, None),
-    ("how's my month going?", "month_summary", None, None),
-    ("where did my money go?", "where_money_went", None, None),
-    ("how does this compare to last month?", "compare_last_month", None, None),
+    ("what's unusual?", "lookup", "anomalies", None),
+    ("anything I should know about this month?", "lookup", "anomalies", None),
+    ("how am I doing this month?", "lookup", "summary", None),
+    ("how's my month going?", "lookup", "summary", None),
+    ("where did my money go?", "lookup", "top_categories", None),
+    ("how does this compare to last month?", "lookup", "summary", None),
     # --- category spend, plain and paraphrased
     ("how much did I spend on groceries?", "lookup", "total_out", "groceries"),
     ("what have I spent on groceries?", "lookup", "total_out", "groceries"),
@@ -59,7 +59,7 @@ BANK: list[tuple[str, str, str | None, str | None]] = [
     ("what's my average grocery trip?", "lookup", "average", "groceries"),
     ("what was my biggest purchase?", "lookup", "largest", None),
     ("what's the most expensive thing I bought?", "lookup", "largest", None),
-    ("what subscriptions do I have?", "lookup", "list_recurring", "subscriptions"),
+    ("what subscriptions do I have?", "lookup", "list_recurring", None),
     ("what are my recurring charges?", "lookup", "list_recurring", None),
     ("where do I shop the most?", "lookup", "top_merchants", None),
     ("which categories are biggest?", "lookup", "top_categories", None),
@@ -72,9 +72,9 @@ BANK: list[tuple[str, str, str | None, str | None]] = [
     ("has my grocery bill changed?", "lookup", "trend", "groceries"),
     # --- speech-to-text noise (what the agent actually hands us)
     ("how much did i spend on grocerys", "lookup", "total_out", "groceries"),
-    ("whats unusual", "anomalies", None, None),
+    ("whats unusual", "lookup", "anomalies", None),
     ("how much at croger", "lookup", "total_out", "Kroger"),
-    ("wheres my money going", "where_money_went", None, None),
+    ("wheres my money going", "lookup", "top_categories", None),
     ("how much did i spend on eating out last month", "lookup", "total_out", "dining"),
     # --- refusals and chat
     ("should I cancel Netflix?", "advice_refused", None, None),
@@ -102,10 +102,10 @@ FOLLOW_UPS: list[tuple[str, str, str | None, str | None]] = [
 
 def check(question, want_intent, want_metric, want_subject, use_parser):
     started = time.perf_counter()
-    routed = service.resolve(question, use_parser=use_parser)
+    intent, plan = service.decide(question)
     elapsed = (time.perf_counter() - started) * 1000
-    got_intent = routed.intent.value
-    plan = routed.plan
+    got_intent = intent.value
+    check.last_plan = plan  # so a follow-up sequence can carry real context
 
     if got_intent != want_intent:
         # Honest refusals are safe; anything else is a confident wrong answer.
@@ -115,14 +115,18 @@ def check(question, want_intent, want_metric, want_subject, use_parser):
         return "MISROUTE", f"{got_intent}/{plan.metric.value}", elapsed
     if want_subject and plan and (plan.subject.value or "") != want_subject:
         return "MISROUTE", f"{got_intent}/{plan.subject.value}", elapsed
-    if want_subject is None and plan and plan.subject.kind != SubjectKind.all and want_metric:
+    # A list metric may legitimately carry its own category ("subscriptions"); other
+    # metrics must not invent a subject the question did not name.
+    if (want_subject is None and plan and want_metric
+            and plan.subject.kind != SubjectKind.all
+            and plan.metric.value not in ("list_recurring", "top_categories", "top_merchants")):
         return "MISROUTE", f"{got_intent}/{plan.subject.value}", elapsed
     return "correct", got_intent, elapsed
 
 
 def main(use_parser: bool) -> int:
     state.load_default()
-    mode = "patterns + model parser" if use_parser else "patterns only (no model)"
+    mode = "model planner" if use_parser else "no model (fallback answers only)"
     print(f"Question understanding eval — {mode}\n")
 
     outcomes: Counter[str] = Counter()
@@ -130,22 +134,21 @@ def main(use_parser: bool) -> int:
     problems: list[str] = []
 
     for question, intent, metric, subject in BANK:
-        state.state.last_plan = None
+        state.state.history.clear()
         verdict, got, ms = check(question, intent, metric, subject, use_parser)
         outcomes[verdict] += 1
         latencies.append(ms)
         if verdict != "correct":
             problems.append(f"  {verdict:<11} {question:<48} got {got}, wanted {intent}")
 
-    state.state.last_plan = None
+    state.state.history.clear()
     for question, intent, metric, subject in FOLLOW_UPS:  # sequential: context matters
         verdict, got, ms = check(question, intent, metric, subject, use_parser)
         outcomes[verdict] += 1
         latencies.append(ms)
         if verdict != "correct":
             problems.append(f"  {verdict:<11} {question:<48} got {got}, wanted {intent}")
-        if routed_plan := service.resolve(question, use_parser=use_parser).plan:
-            state.state.last_plan = routed_plan
+        state.remember(question, check.last_plan)
 
     total = sum(outcomes.values())
     unsure = outcomes["don't know"]

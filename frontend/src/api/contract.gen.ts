@@ -332,6 +332,7 @@ export interface components {
              */
             contract_version: string;
             lookup?: components["schemas"]["Lookup"] | null;
+            overview?: components["schemas"]["Overview"] | null;
             /**
              * Period
              * @example September 2026
@@ -446,7 +447,7 @@ export interface components {
          * Metric
          * @enum {string}
          */
-        Metric: "total_out" | "total_in" | "net" | "count" | "average" | "largest" | "smallest" | "list_recurring" | "top_merchants" | "top_categories" | "trend";
+        Metric: "total_out" | "total_in" | "net" | "count" | "average" | "largest" | "smallest" | "list_recurring" | "top_merchants" | "top_categories" | "trend" | "summary" | "anomalies";
         /** MonthSummary */
         MonthSummary: {
             /** Net */
@@ -458,11 +459,48 @@ export interface components {
             /** Total Out */
             total_out: number;
         };
+        /** MonthTotals */
+        MonthTotals: {
+            /** Period */
+            period: string;
+            /** Total In */
+            total_in: number;
+            /** Total Out */
+            total_out: number;
+            /** Transactions */
+            transactions: number;
+        };
         /**
          * NarrationSource
          * @enum {string}
          */
         NarrationSource: "model" | "template" | "refusal" | "replay" | "cache";
+        /**
+         * Overview
+         * @description Precomputed aggregates of the whole ledger — the only view of the data the model
+         *     ever gets. No transactions, no account identifiers.
+         */
+        Overview: {
+            /** All Categories */
+            all_categories?: string[];
+            /** Anomalies */
+            anomalies?: components["schemas"]["Anomaly"][];
+            /**
+             * As Of
+             * Format: date
+             */
+            as_of: string;
+            /** Categories This Period */
+            categories_this_period?: components["schemas"]["CategoryAmount"][];
+            /** Current Period */
+            current_period: string;
+            /** Merchants This Period */
+            merchants_this_period?: components["schemas"]["MerchantAmount"][];
+            /** Months */
+            months?: components["schemas"]["MonthTotals"][];
+            /** Recurring */
+            recurring?: components["schemas"]["CategoryAmount"][];
+        };
         /** Period */
         Period: {
             /**

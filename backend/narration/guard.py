@@ -118,7 +118,11 @@ def _matches(value: float, allowed: set[float]) -> bool:
 
 
 def allowed_names(bundle: FactBundle) -> set[str]:
-    """Every category or merchant the narration is entitled to mention."""
+    """Every category or merchant the narration is entitled to mention.
+
+    The overview is excluded deliberately: it lists the whole ledger, so counting it would
+    permit any name at all and the check would catch nothing.
+    """
     names: set[str] = set()
 
     def collect(value) -> None:
@@ -136,14 +140,21 @@ def allowed_names(bundle: FactBundle) -> set[str]:
             for item in value:
                 collect(item)
 
-    collect(json.loads(bundle.model_dump_json()))
+    payload = json.loads(bundle.model_dump_json())
+    payload.pop("overview", None)
+    collect(payload)
     return names
 
 
 def check_names(text: str, bundle: FactBundle, vocabulary: set[str]) -> list[str]:
-    """Catch a mislabelled answer: a real category or merchant that this bundle is not
-    about. The numeric guard cannot see this — the figures may be perfectly true while
-    the thing they are attached to is wrong."""
+    """Catch a mislabelled answer: a real category or merchant that this question is not
+    about. The numeric guard cannot see this — the figures may be perfectly true while the
+    thing they are attached to is wrong ("For groceries..." over the whole month's total).
+
+    A name has to appear in the answer's own facts — the plan, the lookup, the anomalies,
+    the month summary. Naming something that is merely somewhere in the overview is not
+    enough: that is how "For groceries..." ended up on the whole month's total.
+    """
     allowed = allowed_names(bundle)
     lowered = text.lower()
     return sorted({

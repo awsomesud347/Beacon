@@ -13,6 +13,8 @@ compute, subtract, add, estimate or infer a figure: no differences, no yearly to
 verdict or an anomaly says so.
 - No advice, no suggestions, no projections, no reassurance about the future.
 - No preamble. Start with the answer itself.
+- Always a complete sentence with a verb ("you made 13 purchases", not "13 purchases").
+- Spell category and shop names exactly as the facts spell them ("Kroger", not "kroger").
 
 How to say each fact:
 - verdict normal: "Your spending looks normal."
@@ -48,8 +50,7 @@ EXAMPLES = [
         '"lookup":{"subject_label":"groceries","period_label":"July 2026","total":412.0,'
         '"count":9,"prior_total":389.5,"prior_label":"June 2026","delta_pct":5.8},'
         '"understood":"groceries in July 2026"}',
-        "For groceries in July 2026, you spent $412 across 9 purchases, up 5.8% from "
-        "June 2026.",
+        "You spent $412 across 9 purchases, up 5.8% from June 2026.",
     ),
     (
         '{"query_type":"compare_last_month","period":"March 2026","verdict":"normal",'
@@ -63,14 +64,40 @@ EXAMPLES = [
     ),
 ]
 
-LOOKUP_HINT = """The user asked a specific question. `plan` says what was asked and `lookup`
-holds the answer: total is the amount, count how many purchases, average the typical one,
-largest the single biggest, items the list, prior_total and delta_pct the comparison with
-prior_label. Answer just that question in one sentence.
-If `understood` is set, begin with it ("For groceries in July, ...") so the listener can tell
-the question was taken correctly, then do not repeat the subject or period again.
-If `empty` is true, say plainly that nothing was spent — never fill the silence with a number
-from somewhere else."""
+LOOKUP_HINT = """`plan` says what was asked; `lookup` holds the figures for exactly that;
+`overview` is background about the whole ledger. Answer the question that `plan` describes.
+Start with the answer itself. Do NOT open by naming the category, shop or month — that
+opening is added for you, and writing your own is how the wrong label gets attached to the
+right number.
+If `empty` is true, say plainly that nothing was spent there — never substitute another figure.
+Never attach a figure to a category or shop the question was not about."""
+
+# What shape of answer each kind of question needs. Without this a list question gets
+# answered with one item's number, which sounds confident and is wrong.
+METRIC_HINTS = {
+    "total_out": "Give lookup.total, and the change from prior_label if delta_pct is there.",
+    "total_in": "Give lookup.total as money received.",
+    "net": "lookup.total is what was LEFT OVER after spending — not what came in. Say that "
+           "amount as kept (or overspent if negative), then items 'money in' and "
+           "'money out'.",
+    "count": "Lead with lookup.count as the number of purchases, then lookup.total.",
+    "average": "Give lookup.average, then how many purchases it averages over.",
+    "largest": "Name lookup.largest.merchant and its amount.",
+    "smallest": "Name lookup.largest.merchant and its amount as the smallest purchase.",
+    "trend": "Say up or down by delta_pct, then lookup.total against prior_total in "
+             "prior_label.",
+    "list_recurring": "Say how many regular charges and their monthly total, then name them "
+                      "from lookup.items. This is a list of charges, not a count of "
+                      "purchases.",
+    "top_categories": "Name the top categories from lookup.items WITH their amounts, in "
+                      "order. Do not single out one category.",
+    "top_merchants": "Name the top shops from lookup.items WITH their amounts, in order. "
+                     "Do not single out one shop.",
+    "summary": "Give context.month_total_out and how it compares with "
+               "context.prior_month_total_out using context.delta_pct, then mention at most "
+               "one item from anomalies. This is the whole month, not one category.",
+    "anomalies": "Lead with the verdict, then each entry in anomalies, in order.",
+}
 
 INTENT_HINTS = {
     "lookup": LOOKUP_HINT,
@@ -88,15 +115,19 @@ RETRY = ("Important: a previous answer used numbers that are not in the facts ({
          "copied from the facts.")
 
 
-def user_message(bundle_json: str, intent: str) -> str:
-    return f"{INTENT_HINTS.get(intent, '')}\n\nFacts:\n{bundle_json}"
+def user_message(bundle_json: str, intent: str, metric: str | None = None) -> str:
+    hint = INTENT_HINTS.get(intent, "")
+    if metric and metric in METRIC_HINTS:
+        hint = f"{hint}\n{METRIC_HINTS[metric]}"
+    return f"{hint}\n\nFacts:\n{bundle_json}"
 
 
-def messages(bundle_json: str, intent: str, rejected: list[str] | None = None) -> list[dict]:
+def messages(bundle_json: str, intent: str, rejected: list[str] | None = None,
+             metric: str | None = None) -> list[dict]:
     system = SYSTEM + ("\n\n" + RETRY.format(rejected=", ".join(rejected)) if rejected else "")
     out = [{"role": "system", "content": system}]
     for facts, answer in EXAMPLES:
         out += [{"role": "user", "content": f"Facts:\n{facts}"},
                 {"role": "assistant", "content": answer}]
-    out.append({"role": "user", "content": user_message(bundle_json, intent)})
+    out.append({"role": "user", "content": user_message(bundle_json, intent, metric)})
     return out

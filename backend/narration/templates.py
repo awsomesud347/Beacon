@@ -123,11 +123,42 @@ def _compare(b: FactBundle, discreet: bool) -> str:
     return s
 
 
+def read_back_lead(b: FactBundle) -> str:
+    """The deterministic opening that tells the listener how the question was taken.
+
+    Written here, never by the model: it kept copying the subject out of a prompt example
+    and pinning it to whatever figures it had.
+    """
+    if not b.understood:
+        return ""
+    scoped = bool(b.plan and b.plan.subject.value)
+    return f"For {b.understood}," if scoped else f"In {b.understood},"
+
+
+def with_read_back(b: FactBundle, text: str) -> str:
+    """Put our own read-back in front of the model's sentence, unless the sentence already
+    says which subject and period it is about — two read-backs is worse than none."""
+    lead = read_back_lead(b)
+    if not lead or text.lower().startswith(("for ", "in ")):
+        return text
+    opening = text[:60].lower()
+    subject = (b.plan.subject.value or "").lower() if b.plan else ""
+    period = (b.lookup.period_label or "").lower() if b.lookup else ""
+    if subject and subject in opening and (not period or period in text.lower()):
+        return text[0].upper() + text[1:]
+    return f"{lead} {text[0].lower()}{text[1:]}"
+
+
 def _lookup(b: FactBundle, discreet: bool) -> str:
     """One deterministic sentence per metric. Always correct, used as the guard's fallback."""
     lk, plan = b.lookup, b.plan
     if lk is None or plan is None:
         return refusals.UNKNOWN
+    # The two broad questions keep their own wording even when they arrive as a plan.
+    if plan.metric == Metric.anomalies:
+        return _anomalies(b, discreet)
+    if plan.metric == Metric.summary:
+        return _summary(b, discreet)
     scoped = lk.subject_label != "everything"
     what = lk.subject_label
     when = lk.period_label
@@ -222,8 +253,7 @@ def _lookup(b: FactBundle, discreet: bool) -> str:
         return f"you spent {money(lk.total)}{on_what} {when}{change}."
 
     body = re.sub(r"\s+([,.])", r"\1", " ".join(sentence().split()))
-    if b.understood:
-        lead = f"For {b.understood}," if scoped else f"In {b.understood},"
+    if lead := read_back_lead(b):
         return f"{lead} {body}"
     return body[0].upper() + body[1:]
 

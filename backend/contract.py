@@ -49,6 +49,8 @@ class Metric(StrEnum):
     top_merchants = "top_merchants"
     top_categories = "top_categories"
     trend = "trend"
+    summary = "summary"  # how the month is going overall
+    anomalies = "anomalies"  # what stands out
 
 
 class SubjectKind(StrEnum):
@@ -69,8 +71,8 @@ class PeriodKind(StrEnum):
 
 
 class PlanSource(StrEnum):
-    pattern = "pattern"  # deterministic router; no model involved
-    model = "model"  # parsed by the language model, then validated
+    pattern = "pattern"  # deterministic safety backstop; no model involved
+    model = "model"  # chosen by the language model, then validated
     followup = "followup"  # carried over from the previous question
 
 
@@ -220,6 +222,27 @@ class Lookup(BaseModel):
     empty: bool = False
 
 
+class MonthTotals(BaseModel):
+    period: str
+    total_out: float
+    total_in: float
+    transactions: int
+
+
+class Overview(BaseModel):
+    """Precomputed aggregates of the whole ledger — the only view of the data the model
+    ever gets. No transactions, no account identifiers."""
+
+    current_period: str
+    as_of: date
+    months: list[MonthTotals] = Field(default_factory=list)
+    categories_this_period: list[CategoryAmount] = Field(default_factory=list)
+    merchants_this_period: list[MerchantAmount] = Field(default_factory=list)
+    recurring: list[CategoryAmount] = Field(default_factory=list)
+    anomalies: list[Anomaly] = Field(default_factory=list)
+    all_categories: list[str] = Field(default_factory=list)
+
+
 class FactBundle(BaseModel):
     contract_version: str = CONTRACT_VERSION
     query_type: Intent
@@ -231,6 +254,7 @@ class FactBundle(BaseModel):
     context: Context
     plan: QueryPlan | None = None
     lookup: Lookup | None = None
+    overview: Overview | None = None
     understood: str | None = Field(
         default=None,
         description="Read-back of how the question was understood, set only when something "

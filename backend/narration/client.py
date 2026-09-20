@@ -38,6 +38,16 @@ def _client() -> tuple[OpenAI, str] | None:
     return None
 
 
+def looks_like_a_sentence(text: str) -> bool:
+    """A spoken answer has to be a sentence. The small model sometimes returns a fragment
+    ("13 purchases totaling $314.39"), which reads as a glitch when there is nothing on
+    screen to fall back on."""
+    stripped = text.strip()
+    return (len(stripped.split()) >= 5
+            and stripped.endswith((".", "!", "?"))
+            and any(c.isalpha() for c in stripped))
+
+
 def tidy_numbers(text: str) -> str:
     """Formatting only, never values: $47.0/$47.00 -> $47, $38.5 -> $38.50, 100.0% -> 100%."""
     text = re.sub(r"(\$\d[\d,]*)\.0{1,2}(?!\d)", r"\1", text)
@@ -98,14 +108,17 @@ def narrate(bundle: FactBundle, discreet: bool = False) -> Narration:
         # Retry starts fresh (not "please fix"), names the bad figures, and runs warmer so it
         # doesn't reproduce the same sentence.
         for attempt, temperature in ((1, 0.2), (2, 0.6)):
-            msgs = prompts.messages(bundle_json, intent, rejected or None)
+            metric = bundle.plan.metric.value if bundle.plan else None
+            msgs = prompts.messages(bundle_json, intent, rejected or None, metric)
             text = _complete(client, model, msgs, temperature)
             attempts = attempt
             result = guard.check(text, bundle, names)
             guard.record(intent, attempt, result, text, question=bundle.understood)
-            if result.passed and text:
-                return Narration(text, NarrationSource.model,
+            if result.passed and looks_like_a_sentence(text):
+                return Narration(templates.with_read_back(bundle, text), NarrationSource.model,
                                  GuardResult(passed=True, attempts=attempt))
+            if result.passed:  # nothing false, just not speakable — try again, then template
+                log.info("narration was not a sentence: %r", text[:120])
             rejected += [t for t in result.rejected if t not in rejected]
     except Exception:
         log.exception("narration model call failed; using template")

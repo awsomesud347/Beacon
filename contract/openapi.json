@@ -444,6 +444,16 @@
               }
             ]
           },
+          "overview": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Overview"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "period": {
             "examples": [
               "September 2026"
@@ -760,7 +770,9 @@
           "list_recurring",
           "top_merchants",
           "top_categories",
-          "trend"
+          "trend",
+          "summary",
+          "anomalies"
         ],
         "title": "Metric",
         "type": "string"
@@ -796,6 +808,34 @@
         "title": "MonthSummary",
         "type": "object"
       },
+      "MonthTotals": {
+        "properties": {
+          "period": {
+            "title": "Period",
+            "type": "string"
+          },
+          "total_in": {
+            "title": "Total In",
+            "type": "number"
+          },
+          "total_out": {
+            "title": "Total Out",
+            "type": "number"
+          },
+          "transactions": {
+            "title": "Transactions",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "period",
+          "total_out",
+          "total_in",
+          "transactions"
+        ],
+        "title": "MonthTotals",
+        "type": "object"
+      },
       "NarrationSource": {
         "enum": [
           "model",
@@ -806,6 +846,68 @@
         ],
         "title": "NarrationSource",
         "type": "string"
+      },
+      "Overview": {
+        "description": "Precomputed aggregates of the whole ledger \u2014 the only view of the data the model\never gets. No transactions, no account identifiers.",
+        "properties": {
+          "all_categories": {
+            "items": {
+              "type": "string"
+            },
+            "title": "All Categories",
+            "type": "array"
+          },
+          "anomalies": {
+            "items": {
+              "$ref": "#/components/schemas/Anomaly"
+            },
+            "title": "Anomalies",
+            "type": "array"
+          },
+          "as_of": {
+            "format": "date",
+            "title": "As Of",
+            "type": "string"
+          },
+          "categories_this_period": {
+            "items": {
+              "$ref": "#/components/schemas/CategoryAmount"
+            },
+            "title": "Categories This Period",
+            "type": "array"
+          },
+          "current_period": {
+            "title": "Current Period",
+            "type": "string"
+          },
+          "merchants_this_period": {
+            "items": {
+              "$ref": "#/components/schemas/MerchantAmount"
+            },
+            "title": "Merchants This Period",
+            "type": "array"
+          },
+          "months": {
+            "items": {
+              "$ref": "#/components/schemas/MonthTotals"
+            },
+            "title": "Months",
+            "type": "array"
+          },
+          "recurring": {
+            "items": {
+              "$ref": "#/components/schemas/CategoryAmount"
+            },
+            "title": "Recurring",
+            "type": "array"
+          }
+        },
+        "required": [
+          "current_period",
+          "as_of"
+        ],
+        "title": "Overview",
+        "type": "object"
       },
       "Period": {
         "properties": {

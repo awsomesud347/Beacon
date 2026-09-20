@@ -3,6 +3,7 @@
 import pandas as pd
 
 from backend.analysis.loader import period_label
+from backend.analysis.overview import build as build_overview
 from backend.analysis.query import execute
 from backend.analysis.rules import (
     Finding,
@@ -18,6 +19,7 @@ from backend.contract import (
     Context,
     FactBundle,
     Intent,
+    Metric,
     MonthSummary,
     QueryPlan,
     Verdict,
@@ -99,18 +101,32 @@ def _comparison(view: MonthView, context: Context) -> Comparison:
 
 def build_lookup_bundle(df: pd.DataFrame, plan: QueryPlan, understood: str | None = None,
                         as_of: pd.Timestamp | None = None) -> FactBundle:
-    """A scoped question: the plan says what was asked, the lookup carries the answer."""
+    """Everything the model may use to answer this question: the plan it chose, the figures
+    that plan produced, and the standing overview of the ledger."""
+    # Anchor the analysis to the period that was asked about: "and last month?" must not
+    # describe this month's anomalies under last month's name.
+    as_of = as_of or pd.Timestamp(min(plan.period.end, df["date"].max().date()))
     view = month_view(df, as_of)
+    findings = detect_all(df, as_of)
     lookup = execute(plan, df)
-    return FactBundle(
+    bundle = FactBundle(
         query_type=Intent.lookup,
         period=plan.period.label,
-        verdict=Verdict.no_data if lookup.empty else Verdict.normal,
+        verdict=_verdict(view, findings),
         context=_context(view),
         plan=plan,
         lookup=lookup,
+        overview=build_overview(df),
         understood=understood,
     )
+    if plan.metric in (Metric.anomalies, Metric.summary):
+        bundle.anomalies = [f.anomaly for f in findings[:TOP_ANOMALIES]]
+    if plan.metric == Metric.summary:
+        bundle.summary = _summary(view)
+        bundle.comparison = _comparison(view, bundle.context)
+    if lookup.empty and plan.metric not in (Metric.anomalies, Metric.summary):
+        bundle.verdict = Verdict.no_data
+    return bundle
 
 
 def build_bundle(df: pd.DataFrame, intent: Intent,
