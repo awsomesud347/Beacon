@@ -199,11 +199,10 @@ def route(text: str, vocab: Vocabulary | None = None, today=None) -> Routed:
     # A resolved subject on its own is enough: "anything from Amazon lately?"
     if metric is None and (has_subject or (FACTUAL.search(q) and period_named)):
         metric = Metric.total_out
+    # A subject was named but could not be resolved ("how much at croger", "how much on
+    # pets?"). Hand it to the parser, which may recognise a misspelling; if that also
+    # fails the caller says plainly that it cannot answer.
     if metric is None:
-        # A subject was named but is not in this ledger ("how much on pets?"): say so,
-        # rather than sending it to the parser to be guessed at.
-        if FACTUAL.search(q) and SUBJECT_PHRASE.search(q):
-            return Routed(Intent.unsupported)
         return Routed(Intent.unknown)
 
     plan = QueryPlan(metric=metric, subject=subject, period=period)

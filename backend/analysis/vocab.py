@@ -8,6 +8,7 @@ spending resolves to nothing and gets an honest answer, never a guess.
 
 import re
 from dataclasses import dataclass, field
+from difflib import get_close_matches
 from functools import lru_cache
 
 import pandas as pd
@@ -33,8 +34,11 @@ SYNONYMS = {
     "fun": "entertainment", "movies": "entertainment", "cinema": "entertainment",
     "salary": "income", "paycheck": "income", "pay": "income", "wages": "income",
     "earnings": "income", "deposits": "income",
-    "stuff": "shopping", "purchases": "shopping", "retail": "shopping",
+    "retail": "shopping",
 }
+# Speech-to-text and typing noise: "croger" -> Kroger. Only ever matched against names
+# that exist in the ledger, so this can correct a word but never invent one.
+CLOSE_MATCH_CUTOFF = 0.82
 
 _WORD = re.compile(r"[a-z0-9']+")
 
@@ -81,6 +85,22 @@ class Vocabulary:
         for merchant in self.merchants:
             if tokens & set(_WORD.findall(merchant.lower())):
                 return Subject(kind=SubjectKind.merchant, value=merchant)
+        return self._close_match(q)
+
+    def _close_match(self, q: str) -> Subject | None:
+        """Last resort: a near-miss spelling of something that really is in the ledger."""
+        for word in {q, *_WORD.findall(q)}:
+            if len(word) < 5:  # short words ("shop", "gas") belong to the synonym table
+                continue
+            for pool, kind in ((self.categories, SubjectKind.category),
+                               (self.merchants, SubjectKind.merchant)):
+                names = {name.lower(): name for name in pool}
+                hit = get_close_matches(word, names, n=1, cutoff=CLOSE_MATCH_CUTOFF)
+                if hit:
+                    return Subject(kind=kind, value=names[hit[0]])
+            hit = get_close_matches(word, SYNONYMS, n=1, cutoff=CLOSE_MATCH_CUTOFF)
+            if hit and SYNONYMS[hit[0]] in self.categories:
+                return Subject(kind=SubjectKind.category, value=SYNONYMS[hit[0]])
         return None
 
     def validate(self, subject: Subject) -> Subject | None:

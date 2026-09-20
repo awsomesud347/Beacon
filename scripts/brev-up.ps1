@@ -13,24 +13,26 @@ if (-not $instance) { Write-Error "Set BREV_INSTANCE in .env"; exit 1 }
 function Brev([string]$cmd) { wsl -d Ubuntu -- bash -lc "~/.local/bin/brev $cmd" }
 
 Write-Host "==> instance status" -ForegroundColor Cyan
-$status = Brev "ls"
-$status | Select-String $instance
+# -join first: on an array, -match/-notmatch filters instead of returning a boolean.
+$status = (Brev "ls") -join "`n"
+($status -split "`n") | Select-String $instance
 if ($status -notmatch "$instance\s+RUNNING") {
     Write-Host "==> starting $instance (a few minutes)" -ForegroundColor Cyan
-    Brev "start $instance --wait"
+    Brev "start $instance" | Out-Null
+    foreach ($i in 1..60) {
+        Start-Sleep -Seconds 10
+        if (((Brev "ls") -join "`n") -match "$instance\s+RUNNING") { break }
+    }
 }
 
-Write-Host "==> refreshing ssh config (the IP changes on restart)" -ForegroundColor Cyan
-Brev "refresh" | Out-Null
-
-Write-Host "==> starting vLLM in tmux (first run after a wipe reinstalls, ~15 min)" -ForegroundColor Cyan
-$remote = @'
-mkdir -p ~/ && cat > ~/brev_serve.sh && chmod +x ~/brev_serve.sh
-tmux has-session -t llm 2>/dev/null && echo "already running" || \
-  tmux new -d -s llm "bash ~/brev_serve.sh 2>&1 | tee ~/llm.log"
-'@
-$remote = $remote -replace "`r`n", "`n"
-wsl -d Ubuntu -- bash -lc "ssh -F ~/.brev/ssh_config -o StrictHostKeyChecking=accept-new $instance '$remote' < scripts/brev_serve.sh"
+Write-Host "==> refreshing ssh and starting vLLM (a fresh box reinstalls, ~15 min)" -ForegroundColor Cyan
+$repo = (wsl -d Ubuntu -- wslpath -a ("$PWD" -replace '\\', '/')).Trim()
+# ssh chats on stderr (host keys, pty warnings); with ErrorActionPreference=Stop that would
+# abort a working run, so judge this step by its exit code instead.
+$ErrorActionPreference = "Continue"
+wsl -d Ubuntu -- bash "$repo/scripts/brev_up.sh" $instance 2>&1 | ForEach-Object { "$_" }
+if ($LASTEXITCODE -ne 0) { Write-Error "brev_up.sh failed"; exit 1 }
+$ErrorActionPreference = "Stop"
 
 Write-Host "==> opening tunnel on localhost:8001" -ForegroundColor Cyan
 Start-Process wsl -ArgumentList @(
