@@ -13,6 +13,14 @@ const SOURCE_LABEL: Record<NarrationSource, string> = {
   cache: 'Pre-recorded demo cache',
 }
 
+/** Where the question's interpretation came from. The model only ever picks filters —
+ * every figure below it is computed from the ledger. */
+const PLAN_SOURCE: Record<string, string> = {
+  pattern: 'Pattern matching (no model involved)',
+  model: 'Language model, checked against the real categories and merchants',
+  followup: 'Carried over from your previous question',
+}
+
 function guardLabel(guard: GuardResult): string {
   const attempts = `${guard.attempts} ${guard.attempts === 1 ? 'attempt' : 'attempts'}`
   return guard.passed ? `Guard passed, ${attempts}` : `Guard failed, ${attempts}`
@@ -71,6 +79,22 @@ export function PayloadInspector({ turn, open, onToggle, buttonRef }: PayloadIns
                 {turn.latency_ms.narration} ms narration)
               </dd>
             </dl>
+
+            {turn.fact_bundle?.plan && (
+              <>
+                <h3>How your question was understood</h3>
+                <dl className="inspector-facts">
+                  <dt>Looking up</dt>
+                  <dd>{turn.fact_bundle.plan.metric.replace(/_/g, ' ')}</dd>
+                  <dt>About</dt>
+                  <dd>{turn.fact_bundle.plan.subject?.value ?? 'everything'}</dd>
+                  <dt>Over</dt>
+                  <dd>{turn.fact_bundle.plan.period.label}</dd>
+                  <dt>Worked out by</dt>
+                  <dd>{PLAN_SOURCE[turn.fact_bundle.plan.source ?? 'pattern']}</dd>
+                </dl>
+              </>
+            )}
 
             <h3>Everything sent to the language model</h3>
             {turn.fact_bundle ? (

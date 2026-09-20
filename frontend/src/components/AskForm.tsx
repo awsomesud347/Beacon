@@ -8,6 +8,9 @@ const SUGGESTED_QUESTIONS = [
   'How am I doing this month?',
   'Where did my money go?',
   'Compare to last month',
+  'How much did I spend on groceries?',
+  'What subscriptions do I have?',
+  'What can I ask you?',
 ] as const
 
 interface AskFormProps {
@@ -35,7 +38,9 @@ export function AskForm({ onAsk, busy }: AskFormProps) {
       <form onSubmit={submit} className="ask-form">
         <label htmlFor={inputId}>Your question</label>
         <p id={hintId} className="hint">
-          For example: what&rsquo;s unusual, how am I doing this month, where did my money go.
+          For example: what&rsquo;s unusual, how much did I spend on groceries in July, what
+          subscriptions do I have. You can also follow up with &ldquo;what about last
+          month?&rdquo;
         </p>
         <div className="ask-row">
           <input
