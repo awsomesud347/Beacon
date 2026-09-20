@@ -1,8 +1,7 @@
 # Beacon
 
-Beacon answers questions about your own money out loud, for people who cannot read a screen.
-You ask "what's unusual this month?" and it answers in a sentence, using figures it
-calculated from your transactions.
+Beacon answers questions about your finances, for the visually impaired who cannot read a screen.
+You can ask it "what's unusual this month?" and it answers in a sentence, using figures it calculated from your transactions.
 
 Built by Sudarshan Kumar Kaushik and Hruday Tamboli. Submitted to SteelHacks. MIT licensed.
 
@@ -11,10 +10,7 @@ Built by Sudarshan Kumar Kaushik and Hruday Tamboli. Submitted to SteelHacks. MI
 ## The problem
 
 Banking apps have become navigable with a screen reader. Two decades of litigation and
-regulation made logging in, reading a balance and paying a bill work for blind and low-vision
-users at most major banks. Understanding your own financial position never followed. A screen
-reader can read what is on the screen, and no screen in a banking app says "this month is
-unusual". That sentence does not exist until something computes it.
+regulation made logging in, reading a balance and paying a bill work for blind and low-vision users at most major banks. But independently being able to understand your own financial position has never been possible. A screen reader can read what is on the screen, and no screen in a banking app says "this month is unusual". That sentence does not exist until something computes it.
 
 - [8,537,000 people in the US](https://disabilitycompendium.org/) reported blindness or
   serious difficulty seeing even with glasses in 2024.
@@ -30,7 +26,7 @@ unusual". That sentence does not exist until something computes it.
 
 ## What it does
 
-Every exchange below is copied from `logs/turns.jsonl`, which records real runs.
+Every exchange below is copied from `logs/turns.jsonl`, which is a json file with our real testing runs.
 
 > **What's unusual?**
 > In September 2026, your spending is normal except for three things: three new subscriptions
@@ -51,7 +47,7 @@ subscriptions do I have?"), income and savings ("am I saving money?"), and trend
 dining spending going up?"). Questions it cannot answer from a transaction history, such as a
 bank balance or a transfer, are declined in one sentence. Requests for advice are refused by
 a hardcoded path that never reaches the model, because advice delivered by voice to someone
-who cannot check it is the worst thing this project could produce.
+who cannot check it is a critical point of failure beacon avoids.
 
 You can use Beacon by voice or by typing, and both give the same answer because both run
 through the same function.
@@ -80,8 +76,7 @@ your question
 The model decides what the question means and how to word the reply. It never does
 arithmetic. The planner returns a short plan, such as "total spent on groceries in July",
 and pandas executes that plan against the ledger. A sighted user who hears a wrong figure can
-glance at the screen and catch it. Our user cannot, so the figure has to be correct before it
-is spoken.
+glance at the screen and catch it, our user cannot. Which is why we implemented the robust computing pipeline using inference from nemotron
 
 The model is also kept away from the raw data. It receives precomputed aggregates: six months
 of totals, this month's categories and merchants, the list of recurring charges, and the
@@ -113,9 +108,9 @@ category, and two contained a number the model had calculated. None of them were
 
 ## Accessibility
 
-Voice is one way to use Beacon, and the interface stands on its own. Screen reader users
-already have text-to-speech and run it faster than any synthesised voice, so the app is built
-to be read by their own software.
+Voice is one way to use Beacon. Screen reader users
+already have text-to-speech and run it faster than any synthesised voice, so the app is built minimally
+to be read by their own software as well.
 
 - Semantic HTML throughout, with real buttons, headings in order, and an accessible name on
   every control.
