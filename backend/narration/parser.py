@@ -17,7 +17,7 @@ from pydantic import BaseModel, ValidationError
 from backend.analysis import query
 from backend.analysis.vocab import Vocabulary
 from backend.contract import Metric, PeriodKind, PlanSource, QueryPlan, Subject, SubjectKind
-from backend.narration.client import _clean, _client
+from backend.narration.client import _THINK, _client
 
 log = logging.getLogger("beacon.parser")
 MAX_TOKENS = 200
@@ -60,6 +60,10 @@ subject_kind: all, category, or merchant.
 subject: MUST be copied exactly from these lists, or null.
   categories: {categories}
   merchants: {merchants}
+Everyday words map onto those categories: eating out / takeout / restaurants -> dining,
+gas / fuel / rides -> transport, food shopping -> groceries, streaming / memberships ->
+subscriptions, bills / power / water / internet -> utilities, pay / salary -> income.
+If the question names something that is not in either list, reply {{"metric": "unsupported"}}.
 
 period_kind: this_month, last_month, named_month, last_n_days, this_week, last_week,
 this_year, all_time. Use this_month when no time is mentioned.
@@ -118,7 +122,9 @@ def parse(question: str, vocab: Vocabulary, previous: QueryPlan | None,
             timeout=TIMEOUT_S,
             extra_body={"chat_template_kwargs": {"enable_thinking": False}},
         )
-        text = _clean(response.choices[0].message.content or "")
+        # Not the narration cleaner: it strips "_" as markdown, which would turn
+        # "total_out" into "totalout" and fail every parse.
+        text = _THINK.sub("", response.choices[0].message.content or "")
     except Exception:
         log.exception("parser call failed")
         return None

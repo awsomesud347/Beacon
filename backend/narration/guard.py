@@ -117,6 +117,42 @@ def _matches(value: float, allowed: set[float]) -> bool:
     return False
 
 
+def allowed_names(bundle: FactBundle) -> set[str]:
+    """Every category or merchant the narration is entitled to mention."""
+    names: set[str] = set()
+
+    def collect(value) -> None:
+        if isinstance(value, str):
+            names.add(value.lower())
+        elif isinstance(value, dict):
+            for key, item in value.items():
+                if key in {"name", "value", "category", "merchant", "merchants",
+                           "subject_label", "period", "period_label", "prior_label",
+                           "understood"}:
+                    collect(item)
+                elif isinstance(item, dict | list):
+                    collect(item)
+        elif isinstance(value, list):
+            for item in value:
+                collect(item)
+
+    collect(json.loads(bundle.model_dump_json()))
+    return names
+
+
+def check_names(text: str, bundle: FactBundle, vocabulary: set[str]) -> list[str]:
+    """Catch a mislabelled answer: a real category or merchant that this bundle is not
+    about. The numeric guard cannot see this — the figures may be perfectly true while
+    the thing they are attached to is wrong."""
+    allowed = allowed_names(bundle)
+    lowered = text.lower()
+    return sorted({
+        name for name in vocabulary
+        if re.search(rf"\b{re.escape(name.lower())}\b", lowered)
+        and not any(name.lower() in permitted for permitted in allowed)
+    })
+
+
 def _candidates(token: str, allowed: Allowed) -> set[float]:
     if token.endswith("%"):
         return allowed.pct
@@ -125,18 +161,21 @@ def _candidates(token: str, allowed: Allowed) -> set[float]:
     return allowed.any
 
 
-def check(text: str, bundle: FactBundle) -> GuardCheck:
+def check(text: str, bundle: FactBundle, vocabulary: set[str] | None = None) -> GuardCheck:
     allowed = allowed_numbers(bundle)
     rejected = [
         token for token, value, spelled in extract(text)
         if not _matches(value, _candidates(token, allowed))
         and not (spelled and value in _SAFE_WORD_VALUES)
     ]
+    if vocabulary:
+        rejected += check_names(text, bundle, vocabulary)
     return GuardCheck(passed=not rejected, rejected=rejected)
 
 
-def record(intent: str, attempt: int, result: GuardCheck, text: str) -> None:
-    entry = {"ts": time.time(), "intent": intent, "attempt": attempt,
+def record(intent: str, attempt: int, result: GuardCheck, text: str,
+           question: str | None = None) -> None:
+    entry = {"ts": time.time(), "intent": intent, "question": question, "attempt": attempt,
              "passed": result.passed, "rejected": result.rejected, "text": text}
     if not result.passed:
         log.warning("guard tripped: %s", entry)

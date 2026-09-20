@@ -34,11 +34,16 @@ wsl -d Ubuntu -- bash "$repo/scripts/brev_up.sh" $instance 2>&1 | ForEach-Object
 if ($LASTEXITCODE -ne 0) { Write-Error "brev_up.sh failed"; exit 1 }
 $ErrorActionPreference = "Stop"
 
-Write-Host "==> opening tunnel on localhost:8001" -ForegroundColor Cyan
-Start-Process wsl -ArgumentList @(
-    '-d', 'Ubuntu', '--', 'bash', '-lc',
-    "ssh -F ~/.brev/ssh_config -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -N -L 8001:127.0.0.1:8000 $instance"
-) -WindowStyle Minimized
+Write-Host "==> opening tunnel on localhost:8001 (its own window, self-restarting)" -ForegroundColor Cyan
+if (Get-NetTCPConnection -LocalPort 8001 -State Listen -ErrorAction SilentlyContinue) {
+    Write-Host "tunnel already up"
+} else {
+    Start-Process powershell -ArgumentList @(
+        '-NoExit', '-Command',
+        "`$host.UI.RawUI.WindowTitle='beacon brev tunnel'; " +
+        "wsl -d Ubuntu -- bash '$repo/scripts/brev_tunnel.sh' $instance"
+    ) -WindowStyle Minimized
+}
 
 $key = (Get-Content .env | Where-Object { $_ -match '^LOCAL_LLM_API_KEY=' } | Select-Object -First 1)
 $key = ($key -split '=', 2)[1].Trim()

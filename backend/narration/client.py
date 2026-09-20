@@ -71,6 +71,18 @@ def template(bundle: FactBundle, discreet: bool = False, attempts: int = 0,
     )
 
 
+def _vocabulary_names() -> set[str]:
+    """Category and merchant names the guard should police. Imported lazily: narration
+    must keep working even without a loaded ledger (tests, fixtures)."""
+    try:
+        from backend import state
+
+        vocab = state.vocabulary()
+        return {*vocab.categories, *vocab.merchants}
+    except Exception:
+        return set()
+
+
 def narrate(bundle: FactBundle, discreet: bool = False) -> Narration:
     configured = None if discreet else _client()
     if configured is None:
@@ -79,6 +91,7 @@ def narrate(bundle: FactBundle, discreet: bool = False) -> Narration:
     intent = bundle.query_type.value
     # Exactly what Turn.fact_bundle carries, so the payload inspector shows the real payload.
     bundle_json = bundle.model_dump_json()
+    names = _vocabulary_names()
     rejected: list[str] = []
     attempts = 0
     try:
@@ -88,8 +101,8 @@ def narrate(bundle: FactBundle, discreet: bool = False) -> Narration:
             msgs = prompts.messages(bundle_json, intent, rejected or None)
             text = _complete(client, model, msgs, temperature)
             attempts = attempt
-            result = guard.check(text, bundle)
-            guard.record(intent, attempt, result, text)
+            result = guard.check(text, bundle, names)
+            guard.record(intent, attempt, result, text, question=bundle.understood)
             if result.passed and text:
                 return Narration(text, NarrationSource.model,
                                  GuardResult(passed=True, attempts=attempt))

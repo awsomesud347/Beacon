@@ -15,7 +15,7 @@ import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
-from backend import events, state
+from backend import events, state, transcript
 from backend import intent as routing
 from backend.analysis.query import understood_phrase
 from backend.analysis.summarize import build_bundle, build_lookup_bundle
@@ -178,6 +178,7 @@ def answer(text: str, channel: Channel = Channel.text, discreet: bool = False) -
         audio_url=audio_url,
     )
     state.state.last_narration = narration
+    transcript.record(turn)
     events.publish_turn(turn)
     return turn
 
