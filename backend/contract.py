@@ -213,6 +213,7 @@ class Lookup(BaseModel):
     count: int
     average: float | None = None
     prior_total: float | None = None
+    prior_label: str | None = None
     delta_pct: float | None = None
     largest: MerchantAmount | None = None
     items: list[CategoryAmount] = Field(default_factory=list, max_length=10)

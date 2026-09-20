@@ -3,9 +3,11 @@
 Also used for discreet mode (no amounts spoken).
 """
 
+import re
+
 from num2words import num2words
 
-from backend.contract import Anomaly, AnomalyType, FactBundle, Intent, Verdict
+from backend.contract import Anomaly, AnomalyType, FactBundle, Intent, Metric, Verdict
 from backend.narration import refusals
 
 
@@ -121,8 +123,115 @@ def _compare(b: FactBundle, discreet: bool) -> str:
     return s
 
 
+def _lookup(b: FactBundle, discreet: bool) -> str:
+    """One deterministic sentence per metric. Always correct, used as the guard's fallback."""
+    lk, plan = b.lookup, b.plan
+    if lk is None or plan is None:
+        return refusals.UNKNOWN
+    scoped = lk.subject_label != "everything"
+    what = lk.subject_label
+    when = lk.period_label
+    when = (when if when.startswith(("this", "last", "the", "yesterday", "today"))
+            else f"in {when}")
+    # When the answer opens by reading the question back, the sentence must not repeat the
+    # subject and period again.
+    read_back = bool(b.understood)
+    on_what = "" if read_back or not scoped else f" on {what}"
+    if read_back:
+        when = ""
+
+
+    change = ""
+    if not discreet and lk.delta_pct is not None and plan.metric in (
+            Metric.total_out, Metric.trend, Metric.total_in):
+        against = lk.prior_label or "the period before"
+        change = (f", the same as {against}" if lk.delta_pct == 0
+                  else f", {_updown(lk.delta_pct)} {pct(lk.delta_pct)} from {against}")
+
+    def sentence() -> str:
+        if lk.empty and plan.metric != Metric.net:
+            return f"you haven't spent anything{on_what} {when}."
+        match plan.metric:
+            case Metric.count:
+                tail = "" if discreet else f", totaling {money(lk.total)}"
+                subject = f"{what} " if scoped else ""
+                noun = "purchase" if lk.count == 1 else "purchases"
+                return f"you made {count(lk.count)} {subject}{noun} {when}{tail}."
+            case Metric.average:
+                if discreet or lk.average is None:
+                    return f"you made {count(lk.count)} purchases{on_what} {when}."
+                return (f"your average{on_what} {when} was {money(lk.average)}, "
+                        f"across {count(lk.count)} purchases.")
+            case Metric.largest | Metric.smallest:
+                if lk.largest is None:
+                    return f"I don't have a purchase{on_what} {when}."
+                size = "biggest" if plan.metric == Metric.largest else "smallest"
+                if discreet:
+                    return f"your {size} purchase {when} was at {lk.largest.merchant}."
+                return (f"your {size} purchase {when} was {money(lk.largest.amount)} "
+                        f"at {lk.largest.merchant}.")
+            case Metric.total_in:
+                if discreet:
+                    return f"you had {count(lk.count)} deposits {when}."
+                return f"you brought in {money(lk.total)} {when}{change}."
+            case Metric.net:
+                if discreet:
+                    how = ("kept some of what came in" if lk.total >= 0
+                           else "spent more than came in")
+                    return f"you {how} {when}."
+                direction = "kept" if lk.total >= 0 else "overspent by"
+                inflow = next((i.amount for i in lk.items if i.name == "money in"), None)
+                outflow = next((i.amount for i in lk.items if i.name == "money out"), None)
+                detail = (f" {money(inflow)} came in and {money(outflow)} went out."
+                          if inflow is not None and outflow is not None else "")
+                return f"you {direction} {money(abs(lk.total))} {when}.{detail}"
+            case Metric.list_recurring:
+                if not lk.items:
+                    return f"I don't see any regular charges {when}."
+                names = _names([i.name for i in lk.items[:5]])
+                more = "" if len(lk.items) <= 5 else f", and {count(len(lk.items) - 5)} more"
+                noun = "subscriptions" if scoped else "regular charges"
+                if discreet:
+                    return f"you have {count(lk.count)} {noun}: {names}{more}."
+                return (f"you have {count(lk.count)} {noun} totaling {money(lk.total)} "
+                        f"a month: {names}{more}.")
+            case Metric.top_merchants | Metric.top_categories:
+                if not lk.items:
+                    return f"I don't have anything{on_what} {when}."
+                if plan.metric == Metric.top_merchants:
+                    if discreet:
+                        return (f"you spent the most at "
+                                f"{_names([i.name for i in lk.items])} {when}.")
+                    parts = [f"{i.name} at {money(i.amount)}" for i in lk.items]
+                    return f"you spent the most {when} at {_names(parts)}."
+                if discreet:
+                    return (f"your biggest categories {when} were "
+                            f"{_names([i.name for i in lk.items])}.")
+                parts = [f"{i.name} at {money(i.amount)}" for i in lk.items]
+                return f"your biggest categories {when} were {_names(parts)}."
+            case Metric.trend:
+                if lk.delta_pct is None or discreet:
+                    return f"you spent {money(lk.total)}{on_what} {when}."
+                direction = "up" if lk.delta_pct >= 0 else "down"
+                subject = what if scoped else "your spending"
+                return (f"{subject} is {direction} {pct(lk.delta_pct)} {when}, at "
+                        f"{money(lk.total)} against {money(lk.prior_total)} "
+                        f"in {lk.prior_label}.")
+        if discreet:
+            return f"you made {count(lk.count)} purchases{on_what} {when}."
+        return f"you spent {money(lk.total)}{on_what} {when}{change}."
+
+    body = re.sub(r"\s+([,.])", r"\1", " ".join(sentence().split()))
+    if b.understood:
+        lead = f"For {b.understood}," if scoped else f"In {b.understood},"
+        return f"{lead} {body}"
+    return body[0].upper() + body[1:]
+
+
 def render(bundle: FactBundle, discreet: bool = False) -> str:
     match bundle.query_type:
+        case Intent.lookup:
+            return _lookup(bundle, discreet)
         case Intent.anomalies:
             return _anomalies(bundle, discreet)
         case Intent.month_summary:

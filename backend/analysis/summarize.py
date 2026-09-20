@@ -3,6 +3,7 @@
 import pandas as pd
 
 from backend.analysis.loader import period_label
+from backend.analysis.query import execute
 from backend.analysis.rules import (
     Finding,
     MonthView,
@@ -18,6 +19,7 @@ from backend.contract import (
     FactBundle,
     Intent,
     MonthSummary,
+    QueryPlan,
     Verdict,
 )
 
@@ -92,6 +94,22 @@ def _comparison(view: MonthView, context: Context) -> Comparison:
         delta_pct=context.delta_pct,
         biggest_increase=entry(change.index[-1]) if change.iloc[-1] > 0 else None,
         biggest_decrease=entry(change.index[0]) if change.iloc[0] < 0 else None,
+    )
+
+
+def build_lookup_bundle(df: pd.DataFrame, plan: QueryPlan, understood: str | None = None,
+                        as_of: pd.Timestamp | None = None) -> FactBundle:
+    """A scoped question: the plan says what was asked, the lookup carries the answer."""
+    view = month_view(df, as_of)
+    lookup = execute(plan, df)
+    return FactBundle(
+        query_type=Intent.lookup,
+        period=plan.period.label,
+        verdict=Verdict.no_data if lookup.empty else Verdict.normal,
+        context=_context(view),
+        plan=plan,
+        lookup=lookup,
+        understood=understood,
     )
 
 

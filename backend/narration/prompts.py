@@ -42,6 +42,16 @@ EXAMPLES = [
         "usual $413.20.",
     ),
     (
+        '{"query_type":"lookup","period":"July 2026","verdict":"normal","anomalies":[],'
+        '"plan":{"metric":"total_out","subject":{"kind":"category","value":"groceries"},'
+        '"period":{"kind":"named_month","label":"July 2026"}},'
+        '"lookup":{"subject_label":"groceries","period_label":"July 2026","total":412.0,'
+        '"count":9,"prior_total":389.5,"prior_label":"June 2026","delta_pct":5.8},'
+        '"understood":"groceries in July 2026"}',
+        "For groceries in July 2026, you spent $412 across 9 purchases, up 5.8% from "
+        "June 2026.",
+    ),
+    (
         '{"query_type":"compare_last_month","period":"March 2026","verdict":"normal",'
         '"anomalies":[],"comparison":{"current_total_out":3120.55,"prior_total_out":2950.1,'
         '"delta_pct":5.8,"biggest_increase":{"name":"groceries","amount":612.4,'
@@ -53,7 +63,17 @@ EXAMPLES = [
     ),
 ]
 
+LOOKUP_HINT = """The user asked a specific question. `plan` says what was asked and `lookup`
+holds the answer: total is the amount, count how many purchases, average the typical one,
+largest the single biggest, items the list, prior_total and delta_pct the comparison with
+prior_label. Answer just that question in one sentence.
+If `understood` is set, begin with it ("For groceries in July, ...") so the listener can tell
+the question was taken correctly, then do not repeat the subject or period again.
+If `empty` is true, say plainly that nothing was spent — never fill the silence with a number
+from somewhere else."""
+
 INTENT_HINTS = {
+    "lookup": LOOKUP_HINT,
     "anomalies": "The user asked what is unusual this month. Cover each anomaly in order.",
     "month_summary": "The user asked how they are doing this month. Say the total spent and its "
                      "change from last month, then only the first anomaly.",

@@ -7,7 +7,7 @@
   "narration": "September looks about normal. You've spent $2,914.22 so far, up 1.5% from August. The biggest change is dining, up 61.2% to $386.40.",
   "narration_source": "model",
   "fact_bundle": {
-    "contract_version": "1",
+    "contract_version": "2",
     "query_type": "month_summary",
     "period": "September 2026",
     "verdict": "normal_with_exception",
@@ -17,11 +17,31 @@
       "total_out": 2914.22,
       "net": 2768.78,
       "top_categories": [
-        { "name": "rent", "amount": 1450.0, "delta_pct": 0.0 },
-        { "name": "groceries", "amount": 412.0, "delta_pct": -3.0 },
-        { "name": "dining", "amount": 386.4, "delta_pct": 61.2 },
-        { "name": "utilities", "amount": 142.18, "delta_pct": -8.4 },
-        { "name": "subscriptions", "amount": 98.45, "delta_pct": 91.3 }
+        {
+          "name": "rent",
+          "amount": 1450.0,
+          "delta_pct": 0.0
+        },
+        {
+          "name": "groceries",
+          "amount": 412.0,
+          "delta_pct": -3.0
+        },
+        {
+          "name": "dining",
+          "amount": 386.4,
+          "delta_pct": 61.2
+        },
+        {
+          "name": "utilities",
+          "amount": 142.18,
+          "delta_pct": -8.4
+        },
+        {
+          "name": "subscriptions",
+          "amount": 98.45,
+          "delta_pct": 91.3
+        }
       ]
     },
     "comparison": null,
@@ -29,9 +49,20 @@
       "month_total_out": 2914.22,
       "prior_month_total_out": 2871.05,
       "delta_pct": 1.5
-    }
+    },
+    "plan": null,
+    "lookup": null,
+    "understood": null
   },
-  "guard": { "passed": true, "attempts": 1, "rejected_tokens": [] },
-  "latency_ms": { "analysis": 9, "narration": 580, "total": 592 },
+  "guard": {
+    "passed": true,
+    "attempts": 1,
+    "rejected_tokens": []
+  },
+  "latency_ms": {
+    "analysis": 9,
+    "narration": 580,
+    "total": 592
+  },
   "audio_url": null
 }

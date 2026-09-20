@@ -328,16 +328,24 @@ export interface components {
             context: components["schemas"]["Context"];
             /**
              * Contract Version
-             * @default 1
+             * @default 2
              */
             contract_version: string;
+            lookup?: components["schemas"]["Lookup"] | null;
             /**
              * Period
              * @example September 2026
              */
             period: string;
+            plan?: components["schemas"]["QueryPlan"] | null;
             query_type: components["schemas"]["Intent"];
             summary?: components["schemas"]["MonthSummary"] | null;
+            /**
+             * Understood
+             * @description Read-back of how the question was understood, set only when something was inferred or carried over from the previous question.
+             * @example groceries in July
+             */
+            understood?: string | null;
             verdict: components["schemas"]["Verdict"];
         };
         /** GuardResult */
@@ -358,7 +366,7 @@ export interface components {
         Health: {
             /**
              * Contract Version
-             * @default 1
+             * @default 2
              */
             contract_version: string;
             dataset?: components["schemas"]["DatasetInfo"] | null;
@@ -382,7 +390,7 @@ export interface components {
          * Intent
          * @enum {string}
          */
-        Intent: "anomalies" | "month_summary" | "where_money_went" | "compare_last_month" | "replay" | "advice_refused" | "help" | "unknown";
+        Intent: "anomalies" | "month_summary" | "where_money_went" | "compare_last_month" | "lookup" | "replay" | "advice_refused" | "identity" | "help" | "unsupported" | "unknown";
         /** Latency */
         Latency: {
             /** Analysis */
@@ -392,6 +400,53 @@ export interface components {
             /** Total */
             total: number;
         };
+        /**
+         * Lookup
+         * @description Result of executing a QueryPlan. Every figure computed by pandas.
+         */
+        Lookup: {
+            /** Average */
+            average?: number | null;
+            /** Count */
+            count: number;
+            /** Delta Pct */
+            delta_pct?: number | null;
+            /**
+             * Empty
+             * @default false
+             */
+            empty: boolean;
+            /** Items */
+            items?: components["schemas"]["CategoryAmount"][];
+            largest?: components["schemas"]["MerchantAmount"] | null;
+            /** Period Label */
+            period_label: string;
+            /** Prior Label */
+            prior_label?: string | null;
+            /** Prior Total */
+            prior_total?: number | null;
+            /**
+             * Subject Label
+             * @example groceries
+             * @example Kroger
+             * @example everything
+             */
+            subject_label: string;
+            /** Total */
+            total: number;
+        };
+        /** MerchantAmount */
+        MerchantAmount: {
+            /** Amount */
+            amount: number;
+            /** Merchant */
+            merchant: string;
+        };
+        /**
+         * Metric
+         * @enum {string}
+         */
+        Metric: "total_out" | "total_in" | "net" | "count" | "average" | "largest" | "smallest" | "list_recurring" | "top_merchants" | "top_categories" | "trend";
         /** MonthSummary */
         MonthSummary: {
             /** Net */
@@ -408,6 +463,50 @@ export interface components {
          * @enum {string}
          */
         NarrationSource: "model" | "template" | "refusal" | "replay" | "cache";
+        /** Period */
+        Period: {
+            /**
+             * End
+             * Format: date
+             */
+            end: string;
+            /** @default this_month */
+            kind: components["schemas"]["PeriodKind"];
+            /**
+             * Label
+             * @example September 2026
+             * @example the last 30 days
+             */
+            label: string;
+            /**
+             * Start
+             * Format: date
+             */
+            start: string;
+        };
+        /**
+         * PeriodKind
+         * @enum {string}
+         */
+        PeriodKind: "this_month" | "last_month" | "named_month" | "last_n_days" | "this_week" | "last_week" | "this_year" | "all_time";
+        /**
+         * PlanSource
+         * @enum {string}
+         */
+        PlanSource: "pattern" | "model" | "followup";
+        /**
+         * QueryPlan
+         * @description The parsed question. Executed deterministically; no number originates here.
+         */
+        QueryPlan: {
+            /** Limit */
+            limit?: number | null;
+            metric: components["schemas"]["Metric"];
+            period: components["schemas"]["Period"];
+            /** @default pattern */
+            source: components["schemas"]["PlanSource"];
+            subject?: components["schemas"]["Subject"];
+        };
         /** QueryRequest */
         QueryRequest: {
             /** @default text */
@@ -425,6 +524,22 @@ export interface components {
          * @enum {string}
          */
         SseEvent: "turn" | "dataset" | "ping";
+        /**
+         * Subject
+         * @description What the question is about. `value` is always a real category or merchant in the
+         *     loaded ledger — the parser cannot invent one.
+         */
+        Subject: {
+            /** @default all */
+            kind: components["schemas"]["SubjectKind"];
+            /** Value */
+            value?: string | null;
+        };
+        /**
+         * SubjectKind
+         * @enum {string}
+         */
+        SubjectKind: "all" | "category" | "merchant";
         /** Turn */
         Turn: {
             /** Audio Url */

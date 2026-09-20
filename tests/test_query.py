@@ -84,17 +84,26 @@ def test_average(df):
     assert result.average == pytest.approx(round(result.total / result.count, 2))
 
 
-def test_largest_and_smallest(df):
+def test_largest_and_smallest_ignore_rent(df):
+    """"Biggest purchase" means a purchase: rent is a payment and would win every month."""
     sept = september(df)
-    out = sept[sept["amount"] < 0]
+    out = sept[(sept["amount"] < 0) & (sept["category"] != "rent")]
     biggest = out.loc[out["amount"].idxmin()]
     result = query.execute(plan(Metric.largest), df)
     assert result.largest.amount == pytest.approx(round(abs(biggest["amount"]), 2))
     assert result.largest.merchant == biggest["display"]
+    assert result.largest.merchant != "Oakwood Apartments"
 
     smallest = out.loc[out["amount"].idxmax()]
     low = query.execute(plan(Metric.smallest), df)
     assert low.largest.amount == pytest.approx(round(abs(smallest["amount"]), 2))
+
+
+def test_largest_keeps_rent_when_rent_is_the_subject(df):
+    p = QueryPlan(metric=Metric.largest,
+                  subject=Subject(kind=SubjectKind.category, value="rent"),
+                  period=query.resolve_period(PeriodKind.this_month, TODAY))
+    assert query.execute(p, df).largest.merchant == "Oakwood Apartments"
 
 
 def test_income_and_net(df):

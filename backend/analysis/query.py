@@ -102,7 +102,8 @@ def prior_period(period: Period, today: date) -> Period | None:
         case PeriodKind.last_n_days | PeriodKind.this_week | PeriodKind.last_week:
             span = (period.end - period.start).days + 1
             end = period.start - pd.Timedelta(days=1)
-            return Period(kind=period.kind, label=f"the previous {span} days",
+            label = "the day before" if span == 1 else f"the previous {span} days"
+            return Period(kind=period.kind, label=label,
                           start=end - pd.Timedelta(days=span - 1), end=end)
     return None
 
@@ -122,6 +123,16 @@ def _subject_filter(df: pd.DataFrame, subject: Subject) -> pd.DataFrame:
 
 def subject_label(subject: Subject) -> str:
     return subject.value if subject.value else "everything"
+
+
+def understood_phrase(plan: QueryPlan) -> str:
+    """Read-back of how the question was taken: 'groceries in July 2026', or just the
+    period when the question was not about anything in particular."""
+    label = plan.period.label
+    when = label if label.startswith(("this", "last", "the")) else f"in {label}"
+    if plan.subject.kind == SubjectKind.all or not plan.subject.value:
+        return label
+    return f"{plan.subject.value} {when}"
 
 
 def _spend_total(df: pd.DataFrame) -> float:
@@ -167,9 +178,13 @@ def execute(plan: QueryPlan, df: pd.DataFrame) -> Lookup:
         case Metric.largest | Metric.smallest:
             lookup.count = int(len(out))
             lookup.total = _spend_total(scoped)
-            if not out.empty:
-                row = out.loc[out["amount"].idxmin() if plan.metric == Metric.largest
-                              else out["amount"].idxmax()]
+            # "Biggest purchase" means a purchase: rent is a payment, and it would win
+            # every month.
+            purchases = out if plan.subject.value else out[out["category"] != "rent"]
+            if not purchases.empty:
+                row = purchases.loc[purchases["amount"].idxmin()
+                                    if plan.metric == Metric.largest
+                                    else purchases["amount"].idxmax()]
                 lookup.largest = MerchantAmount(merchant=str(row["display"]),
                                                 amount=_money(abs(row["amount"])))
         case Metric.top_merchants | Metric.top_categories:
@@ -204,6 +219,7 @@ def execute(plan: QueryPlan, df: pd.DataFrame) -> Lookup:
         prior = (_money(prior_scoped.loc[prior_scoped["amount"] > 0, "amount"].sum())
                  if plan.metric == Metric.total_in else _spend_total(prior_scoped))
         lookup.prior_total = prior
+        lookup.prior_label = previous.label
         lookup.delta_pct = _pct(lookup.total, prior)
 
     if plan.metric not in (Metric.list_recurring,):

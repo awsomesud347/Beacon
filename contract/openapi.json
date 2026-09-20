@@ -430,9 +430,19 @@
             "$ref": "#/components/schemas/Context"
           },
           "contract_version": {
-            "default": "1",
+            "default": "2",
             "title": "Contract Version",
             "type": "string"
+          },
+          "lookup": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Lookup"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "period": {
             "examples": [
@@ -440,6 +450,16 @@
             ],
             "title": "Period",
             "type": "string"
+          },
+          "plan": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QueryPlan"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "query_type": {
             "$ref": "#/components/schemas/Intent"
@@ -453,6 +473,21 @@
                 "type": "null"
               }
             ]
+          },
+          "understood": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Read-back of how the question was understood, set only when something was inferred or carried over from the previous question.",
+            "examples": [
+              "groceries in July"
+            ],
+            "title": "Understood"
           },
           "verdict": {
             "$ref": "#/components/schemas/Verdict"
@@ -508,7 +543,7 @@
       "Health": {
         "properties": {
           "contract_version": {
-            "default": "1",
+            "default": "2",
             "title": "Contract Version",
             "type": "string"
           },
@@ -560,9 +595,12 @@
           "month_summary",
           "where_money_went",
           "compare_last_month",
+          "lookup",
           "replay",
           "advice_refused",
+          "identity",
           "help",
+          "unsupported",
           "unknown"
         ],
         "title": "Intent",
@@ -590,6 +628,142 @@
         ],
         "title": "Latency",
         "type": "object"
+      },
+      "Lookup": {
+        "description": "Result of executing a QueryPlan. Every figure computed by pandas.",
+        "properties": {
+          "average": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Average"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "delta_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta Pct"
+          },
+          "empty": {
+            "default": false,
+            "title": "Empty",
+            "type": "boolean"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CategoryAmount"
+            },
+            "maxItems": 10,
+            "title": "Items",
+            "type": "array"
+          },
+          "largest": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MerchantAmount"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "period_label": {
+            "title": "Period Label",
+            "type": "string"
+          },
+          "prior_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prior Label"
+          },
+          "prior_total": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prior Total"
+          },
+          "subject_label": {
+            "examples": [
+              "groceries",
+              "Kroger",
+              "everything"
+            ],
+            "title": "Subject Label",
+            "type": "string"
+          },
+          "total": {
+            "title": "Total",
+            "type": "number"
+          }
+        },
+        "required": [
+          "subject_label",
+          "period_label",
+          "total",
+          "count"
+        ],
+        "title": "Lookup",
+        "type": "object"
+      },
+      "MerchantAmount": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "number"
+          },
+          "merchant": {
+            "title": "Merchant",
+            "type": "string"
+          }
+        },
+        "required": [
+          "merchant",
+          "amount"
+        ],
+        "title": "MerchantAmount",
+        "type": "object"
+      },
+      "Metric": {
+        "enum": [
+          "total_out",
+          "total_in",
+          "net",
+          "count",
+          "average",
+          "largest",
+          "smallest",
+          "list_recurring",
+          "top_merchants",
+          "top_categories",
+          "trend"
+        ],
+        "title": "Metric",
+        "type": "string"
       },
       "MonthSummary": {
         "properties": {
@@ -633,6 +807,99 @@
         "title": "NarrationSource",
         "type": "string"
       },
+      "Period": {
+        "properties": {
+          "end": {
+            "format": "date",
+            "title": "End",
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/PeriodKind",
+            "default": "this_month"
+          },
+          "label": {
+            "examples": [
+              "September 2026",
+              "the last 30 days"
+            ],
+            "title": "Label",
+            "type": "string"
+          },
+          "start": {
+            "format": "date",
+            "title": "Start",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "start",
+          "end"
+        ],
+        "title": "Period",
+        "type": "object"
+      },
+      "PeriodKind": {
+        "enum": [
+          "this_month",
+          "last_month",
+          "named_month",
+          "last_n_days",
+          "this_week",
+          "last_week",
+          "this_year",
+          "all_time"
+        ],
+        "title": "PeriodKind",
+        "type": "string"
+      },
+      "PlanSource": {
+        "enum": [
+          "pattern",
+          "model",
+          "followup"
+        ],
+        "title": "PlanSource",
+        "type": "string"
+      },
+      "QueryPlan": {
+        "description": "The parsed question. Executed deterministically; no number originates here.",
+        "properties": {
+          "limit": {
+            "anyOf": [
+              {
+                "maximum": 10.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "metric": {
+            "$ref": "#/components/schemas/Metric"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "source": {
+            "$ref": "#/components/schemas/PlanSource",
+            "default": "pattern"
+          },
+          "subject": {
+            "$ref": "#/components/schemas/Subject"
+          }
+        },
+        "required": [
+          "metric",
+          "period"
+        ],
+        "title": "QueryPlan",
+        "type": "object"
+      },
       "QueryRequest": {
         "properties": {
           "channel": {
@@ -664,6 +931,37 @@
           "ping"
         ],
         "title": "SseEvent",
+        "type": "string"
+      },
+      "Subject": {
+        "description": "What the question is about. `value` is always a real category or merchant in the\nloaded ledger \u2014 the parser cannot invent one.",
+        "properties": {
+          "kind": {
+            "$ref": "#/components/schemas/SubjectKind",
+            "default": "all"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "title": "Subject",
+        "type": "object"
+      },
+      "SubjectKind": {
+        "enum": [
+          "all",
+          "category",
+          "merchant"
+        ],
+        "title": "SubjectKind",
         "type": "string"
       },
       "Turn": {
@@ -825,7 +1123,7 @@
   },
   "info": {
     "title": "Beacon API",
-    "version": "1"
+    "version": "2"
   },
   "openapi": "3.1.0",
   "paths": {

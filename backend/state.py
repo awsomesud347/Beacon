@@ -6,8 +6,17 @@ import threading
 from dataclasses import dataclass, field
 
 from backend.analysis.loader import Ledger, load_csv, load_path
+from backend.analysis.vocab import Vocabulary
+from backend.analysis.vocab import build as build_vocab
 from backend.config import get_settings
-from backend.contract import DatasetInfo, FactBundle, GuardResult, Intent, NarrationSource
+from backend.contract import (
+    DatasetInfo,
+    FactBundle,
+    GuardResult,
+    Intent,
+    NarrationSource,
+    QueryPlan,
+)
 
 
 @dataclass
@@ -25,7 +34,9 @@ class State:
     ledger: Ledger | None = None
     digest: str = ""
     answers: dict[tuple[Intent, bool], CachedAnswer] = field(default_factory=dict)
+    lookups: dict[tuple[str, bool], CachedAnswer] = field(default_factory=dict)
     last_narration: str | None = None
+    last_plan: QueryPlan | None = None  # one turn of memory, for follow-up questions
     lock: threading.Lock = field(default_factory=threading.Lock)
 
 
@@ -37,6 +48,8 @@ def _install(ledger: Ledger, raw: bytes) -> DatasetInfo:
         state.ledger = ledger
         state.digest = hashlib.sha256(raw).hexdigest()[:16]
         state.answers.clear()
+        state.lookups.clear()
+        state.last_plan = None
     return ledger.info
 
 
@@ -70,3 +83,22 @@ def store(intent: Intent, discreet: bool, answer: CachedAnswer, digest: str) -> 
     with state.lock:
         if digest == state.digest:  # dataset may have changed mid-computation
             state.answers[(intent, discreet)] = answer
+
+
+def plan_key(plan: QueryPlan) -> str:
+    """Cache key that ignores how the plan was arrived at (pattern, model or follow-up)."""
+    return plan.model_dump_json(exclude={"source"})
+
+
+def cached_lookup(plan: QueryPlan, discreet: bool) -> CachedAnswer | None:
+    return state.lookups.get((plan_key(plan), discreet))
+
+
+def store_lookup(plan: QueryPlan, discreet: bool, answer: CachedAnswer, digest: str) -> None:
+    with state.lock:
+        if digest == state.digest:
+            state.lookups[(plan_key(plan), discreet)] = answer
+
+
+def vocabulary() -> Vocabulary:
+    return build_vocab(ledger().df, state.digest)

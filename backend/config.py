@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     stub_mode: bool = False
     demo_mode: bool = False
     precompute: bool = True
+    parser_enabled: bool = True  # model-based question parsing; patterns always run first
     cors_origins: str = "http://localhost:5173"
     log_level: str = "INFO"
 

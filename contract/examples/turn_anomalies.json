@@ -7,7 +7,7 @@
   "narration": "Your spending is normal except for one thing: you paid three new subscriptions this month that you didn't pay last month, totaling $47. There's also a possible duplicate charge of $38.50 at Corner Bistro.",
   "narration_source": "model",
   "fact_bundle": {
-    "contract_version": "1",
+    "contract_version": "2",
     "query_type": "anomalies",
     "period": "September 2026",
     "verdict": "normal_with_exception",
@@ -60,7 +60,10 @@
       "month_total_out": 2914.22,
       "prior_month_total_out": 2871.05,
       "delta_pct": 1.5
-    }
+    },
+    "plan": null,
+    "lookup": null,
+    "understood": null
   },
   "guard": {
     "passed": true,

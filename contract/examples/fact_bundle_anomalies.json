@@ -52,5 +52,8 @@
     "month_total_out": 2914.22,
     "prior_month_total_out": 2871.05,
     "delta_pct": 1.5
-  }
+  },
+  "plan": null,
+  "lookup": null,
+  "understood": null
 }

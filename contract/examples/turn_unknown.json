@@ -7,7 +7,15 @@
   "narration": "I don't know that. I can tell you what's unusual, how your month is going, where your money went, or how it compares to last month.",
   "narration_source": "template",
   "fact_bundle": null,
-  "guard": { "passed": true, "attempts": 0, "rejected_tokens": [] },
-  "latency_ms": { "analysis": 0, "narration": 0, "total": 1 },
+  "guard": {
+    "passed": true,
+    "attempts": 0,
+    "rejected_tokens": []
+  },
+  "latency_ms": {
+    "analysis": 0,
+    "narration": 0,
+    "total": 1
+  },
   "audio_url": null
 }
